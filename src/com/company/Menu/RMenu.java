@@ -1,0 +1,91 @@
+package com.company.Menu;
+
+import com.company.Product.Burger;
+import com.company.Product.Drink;
+import com.company.Product.RFood;
+import com.company.Product.Sweet;
+import java.util.*;
+
+public class RMenu extends Menu {
+    private List<Sweet> sweets;
+    private List<RFood> rfoods;
+
+    public RMenu(){
+        this.rfoods=new ArrayList<RFood>();
+        this.sweets=new ArrayList<Sweet>();
+    }
+    public RMenu(String name, List<Drink> drinks, List<Sweet> sweets, List<RFood> rfoods) {
+        super(name, drinks);
+        this.sweets = sweets;
+        this.rfoods = rfoods;
+
+        double totalPrice=0;
+        for(Drink it: drinks)
+            totalPrice+=it.getPrice();
+        for(Sweet it: sweets)
+            totalPrice+=it.getPrice();
+        for(RFood it: rfoods)
+            totalPrice+=it.getPrice();
+        this.price=totalPrice;
+    }
+    @Override
+    public void reader(){
+        Scanner var=new Scanner (System.in);
+
+        System.out.print("Restaurant Menu name:");
+        String name=var.nextLine();
+        this.name=name;
+
+        System.out.println("->Restaurant Menu list of drinks:");
+        System.out.print("How many drinks:");
+        int n=var.nextInt();
+        for(int i=0;i<n;i++)
+        {
+            System.out.println("->Introduce drink number "+i+": ");
+            Drink drink=new Drink();
+            drink.reader();
+            this.drinks.add(drink);
+        }
+
+        System.out.println("->Restaurant Menu list of cakes:");
+        System.out.print("How many cakes:");
+        n=var.nextInt();
+        for(int i=0;i<n;i++)
+        {
+            System.out.println("->Introduce cake number "+i+": ");
+            Sweet sweet=new Sweet();
+            sweet.reader();
+            sweets.add(sweet);
+        }
+        System.out.println("->Restaurant Menu list of meals:");
+        System.out.print("How many meals:");
+        n=var.nextInt();
+        for(int i=0;i<n;i++)
+        {
+            System.out.println("->Introduce meal number "+i+": ");
+            RFood rfood=new RFood();
+            rfood.reader();
+            rfoods.add(rfood);
+        }
+
+        double totalPrice=0;
+        for(Drink it: drinks)
+            totalPrice+=it.getPrice();
+        for(Sweet it: sweets)
+            totalPrice+=it.getPrice();
+        for(RFood it: rfoods)
+            totalPrice+=it.getPrice();
+        this.price=totalPrice;
+    }
+
+    @Override
+    public String toString() {
+        return "RMenu{" +
+                "sweets=" + sweets +
+                ", rfoods=" + rfoods +
+                ", name='" + name + '\'' +
+                ", drinks=" + drinks +
+                ", price=" + price +
+                '}';
+    }
+}
