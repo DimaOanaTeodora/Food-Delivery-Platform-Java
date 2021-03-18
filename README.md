@@ -11,23 +11,23 @@
 - price
 - measurement
 - quantity
-    - Burger:
+    ### Burger:
         - isVegan
         - ingredients
-    - Drink:
+    ### Drink:
         - flavour  
-    - RFood:
+    ### RFood:
         - ingredients
-    - Sweet:
+    ### Sweet:
         - calories
 ## Menu (abstract)
 - name
 - drinks (List -> ArrayList) -> composition
 - price 
-    - Box:
+    ### Box:
         - burger -> composition
         - fries
-    - RMenu: 
+    ### RMenu: 
         - sweets (List -> ArrayList) -> composition
         - rfoods (List -> ArrayList) -> composition
 ## Shop (abstract)
@@ -35,22 +35,22 @@
 - owner -> composition
 - deliveryBoys (List -> ArrayList) -> composition
 - rating
-    - CakeShop:
+    ### CakeShop:
         - sweets (List -> ArrayList) -> composition
-    - FastFood:
+    ### FastFood:
         - boxes (List -> ArrayList) -> composition
         - drinks (List -> ArrayList) -> composition
         - burgers (List -> ArrayList) -> composition
-    - Restaurant:
+    ### Restaurant:
         - rMenus (List -> ArrayList) -> composition
 ## User
 - name
 - email
 - phoneNumber
 - password
-    - Owner:
+    ### Owner:
         - shop -> composition
-    - DeliberBoy:
+    ### DeliveryBoy:
         - carNumber
        
 ## Login (Singleton) -> service class for logging
@@ -74,19 +74,20 @@
 - shopId
 - orderId
     - Actions:  
-        - logIn()  
-        - logOff()
+        - logIn() -> logare utilizator sau posibilitatea de a se inregistra in sistem (se pot loga cumparatorii sau adminul)
+        - logOff() -> posibilitatea de sing in/up ca alt utilizator 
     - Actions -> *Admin can acces*
-        - addShop()
-        - deleteShop()
-        - listShops()
-        - addProduct()
-        - deleteProduct()
-        - addMenu()
+        - addShop() -> adaugare magazin in lista de magazine (implicit lista de produse si meniuri)
+        - deleteShop() -> stergere magazin din lista existenta
+        - listShops() -> afisare magazine impreuna cu lista produselor si a meniurilor 
+        - addProduct() -> adaugare produs intr-un magazin dat prin nume
+        - deleteProduct() -> stergere produs dintr-un magazin dat prin nume
+        - addMenu() -> adaugare meniu
     - Actions -> *User can acces* 
-        - listShops()
-        - addOrder()
-        - cancelOrder()
-        - getPopularShops()
+        - listShops() -> afisare magazine impreuna cu lista produselor si a meniurilor 
+        - addOrder() -> plasare comanda
+        - cancelOrder() -> anulare plasare comanda prin id-ul comenzii
+        - getPopularShops() -> afisare magazine sortate descrescator dupa rating
 
 ## Main (Calls for service class)
+-> afiseaza lista de actiuni in functie de tipul utilizatorului logat admin/ cumparator
