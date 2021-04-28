@@ -20,8 +20,8 @@ public class FastFood extends Shop {
         burgers=new ArrayList<Burger>();
     }
 
-    public FastFood(String name, Owner owner, List<DeliveryBoy> deliveryBoys, List<Box> boxes, List<Drink> drinks, List<Burger> burgers) {
-        super(name, owner, deliveryBoys);
+    public FastFood(String name, Owner owner, List<DeliveryBoy> deliveryBoys, List<Box> boxes, List<Drink> drinks, List<Burger> burgers, HashMap<String, Integer>stock) {
+        super(name, owner, deliveryBoys, stock);
         this.boxes = boxes;
         this.drinks = drinks;
         this.burgers = burgers;
@@ -32,7 +32,7 @@ public class FastFood extends Shop {
     public void reader() {
         Scanner var = new Scanner(System.in);
 
-        System.out.print("FastFood  name:");
+        System.out.print("FastFood name:");
         String name = var.nextLine();
         this.name = name;
 
@@ -50,29 +50,41 @@ public class FastFood extends Shop {
         System.out.print("How many burgers:");
         n = var.nextInt();
         for (int i = 0; i < n; i++) {
-            System.out.print("Introduce burger number " + i + ": ");
+            System.out.println("Introduce burger number " + i + ": ");
             Burger burger = new Burger();
             burger.reader();
             this.burgers.add(burger);
+
+            System.out.print("Introduce the stock of "+burger.getName()+" :");
+            int quantity=var.nextInt();
+            stock.put(burger.getName(), quantity);
         }
 
         System.out.println("FastFood list of drinks:");
         System.out.print("How many drinks:");
         n = var.nextInt();
         for (int i = 0; i < n; i++) {
-            System.out.print("Introduce drink number " + i + ": ");
+            System.out.println("Introduce drink number " + i + ": ");
             Drink drink = new Drink();
             drink.reader();
             this.drinks.add(drink);
+
+            System.out.print("Introduce the stock of "+drink.getName()+" :");
+            int quantity=var.nextInt();
+            stock.put(drink.getName(), quantity);
         }
         System.out.println("FastFood list of boxes:");
         System.out.print("How many boxes:");
         n = var.nextInt();
         for (int i = 0; i < n; i++) {
-            System.out.print("Introduce box number " + i + ": ");
+            System.out.println("Introduce box number " + i + ": ");
             Box box = new Box();
             box.reader();
             this.boxes.add(box);
+
+            System.out.print("Introduce the stock of "+box.getName()+" :");
+            int quantity=var.nextInt();
+            stock.put(box.getName(), quantity);
         }
         Owner owner = new Owner();
         owner.reader(this);
@@ -82,15 +94,28 @@ public class FastFood extends Shop {
 
     @Override
     public String toString() {
-        return "FastFood{" +
-                "boxes=" + boxes +
-                ", drinks=" + drinks +
-                ", burgers=" + burgers +
-                ", name='" + name + '\'' +
-                ", owner=" + owner +
-                ", deliveryBoys=" + deliveryBoys +
-                ", rating=" + rating +
-                '}';
+        String output="------FastFood----------";
+        output+="Name: "+ this.name+"\n";
+        output+=this.owner+"\n";
+        output+="Restaurant rating: "+ this.rating+"\n";
+        output+="->List of Deliveryboys:\n ";
+        for (DeliveryBoy db: this.deliveryBoys){
+            output+= db +"\n";
+        }
+        output+="->List of Boxes: \n";
+        for (Box box: this.boxes){
+            output+= box + " \nStock:" + stock.get(box.getName()) +"\n";
+        }
+        output+="->List of Drinks: \n";
+        for (Drink drink: this.drinks){
+            output+= drink + " \nStock:" + stock.get(drink.getName()) +"\n";
+        }
+        output+="->List of Burgers: \n";
+        for (Burger burger: this.burgers){
+            output+= burger + " \nStock:" + stock.get(burger.getName()) +"\n";
+        }
+
+        return output;
     }
 
     @Override

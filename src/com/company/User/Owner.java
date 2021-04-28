@@ -7,25 +7,31 @@ import com.company.Shop.Shop;
 
 import java.util.Scanner;
 
-public class Owner extends User {
-
-    private Shop shop;
+public class Owner {
+    protected String name;
+    protected String email;
+    protected String phoneNumber;
 
     public Owner(){}
-    public Owner(String name, String email, String phoneNumber,  Shop shop) {
-        super(name, email, phoneNumber, null);
+    public Owner(String name, String email, String phoneNumber) {
+        this.name=name;
+        this.email=email;
+        this.phoneNumber=phoneNumber;
+    }
 
-        this.shop = shop;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     @Override
     public String toString() {
-        return "Owner{" +
-                ", shop=" + shop +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                '}';
+        String output="----Owner Information----\n";
+        output+="Name: "+this.name+"\n";
+        output+="Email: "+this.email+"\n";
+        output+="Phone: "+this.phoneNumber+"\n";
+
+        return output;
+
     }
 
     public void reader(Shop shop){
@@ -50,8 +56,6 @@ public class Owner extends User {
                 System.out.println("Please give a valid phone number: ");
         }
         this.phoneNumber=phoneNumber;
-
-        this.shop=shop;
 
     }
 }

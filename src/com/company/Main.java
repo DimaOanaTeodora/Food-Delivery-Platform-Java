@@ -1,6 +1,8 @@
 package com.company;
 
+import com.company.Menu.Box;
 import com.company.Menu.Menu;
+import com.company.Menu.RMenu;
 import com.company.Product.*;
 import com.company.Shop.CakeShop;
 import com.company.Shop.FastFood;
@@ -10,12 +12,21 @@ import com.company.User.DeliveryBoy;
 import com.company.User.Login;
 import com.company.User.User;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 import java.util.List;
+
 
 public class Main {
 
     public static void main(String[] args) {
+    //TODO: de refacut afisarile la toate
+    // TODO: Cand fac un menu trebuie sa scad numarul din stock-uri
+     //TODO:Calea relativa
+
+
         Service service = Service.getInstance();
 
         if(service.logIn()==1){
@@ -107,4 +118,6 @@ public class Main {
 
 
     }
+
+
 }

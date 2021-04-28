@@ -3,9 +3,11 @@ package com.company.Menu;
 import com.company.Product.Burger;
 import com.company.Product.Drink;
 
+
 import java.util.*;
 
 public class Box extends Menu{
+
     private Burger burger;
     private String fries; //small, medium, big and they are cost free
 
@@ -15,6 +17,7 @@ public class Box extends Menu{
         this.burger = burger;
         this.fries = fries;
 
+        //calcul pret
         double totalPrice=0;
         for(Drink it: drinks)
             totalPrice+=it.getPrice();
@@ -64,12 +67,17 @@ public class Box extends Menu{
 
     @Override
     public String toString() {
-        return "Box{" +
-                "burger=" + burger +
-                ", fries='" + fries + '\'' +
-                ", name='" + name + '\'' +
-                ", drinks=" + drinks +
-                ", price=" + price +
-                '}';
+        String output="----Menu: Fast Food Box----\n";
+        output+="Name: "+this.name+"\n";
+        output+="Menu Price: "+this.price+"lei\n";
+        output+=this.burger;
+        output+="Fries: "+this.fries+"\n";
+        output+="->Drinks Options:\n";
+        for(Drink drink : this.drinks)
+            output+=drink;
+
+        return output;
+
     }
+
 }

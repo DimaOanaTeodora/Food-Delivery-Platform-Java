@@ -2,35 +2,204 @@ package com.company;
 
 import com.company.Menu.Box;
 import com.company.Menu.RMenu;
-import com.company.Product.Burger;
-import com.company.Product.Drink;
-import com.company.Product.Product;
-import com.company.Product.Sweet;
+import com.company.Product.*;
 import com.company.Shop.CakeShop;
 import com.company.Shop.FastFood;
 import com.company.Shop.Restaurant;
 import com.company.Shop.Shop;
+import com.company.User.DeliveryBoy;
 import com.company.User.Login;
+import com.company.User.Owner;
 import com.company.User.User;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 
 public class Service { //singleton
 
     private static Service single_instance = null;
-    private Service() { }
+    private Login login;
+    private HashMap<Integer, Shop> shops;
+    private HashMap<Integer, Order> orders;
+    private User currentUser;
+    private int shopId;
+    private int orderId;
+
+    private Service() {
+        shops=new HashMap<Integer, Shop>();
+        orders=new HashMap<Integer, Order>();
+        //citire lista de magazine din csv
+
+        //citire CakeShops
+
+        try (BufferedReader buffer = new BufferedReader(new
+                FileReader("C:\\Users\\Lenovo\\Desktop\\Food-Delivery-Platform-Java-First-Phase\\Proiect PAO\\src\\com\\company\\CakeShop.csv"))) {
+
+            String line = buffer.readLine();
+            while (line != null) {
+                String [] array=line.split(",");
+
+                int k=0;
+                Owner owner= new Owner(array[k++],array[k++],array[k++]);
+                int n=Integer.parseInt(array[k++]);
+                List<DeliveryBoy> deliveryBoys=new ArrayList<DeliveryBoy>();
+                for(int i=0;i<n;i++) {
+                    DeliveryBoy d = new DeliveryBoy(array[k++],array[k++],array[k++],array[k++]);
+                    deliveryBoys.add(d);
+                }
+                String name=array[k++];
+                n=Integer.parseInt(array[k++]);
+                List<Sweet> sweets=new ArrayList<Sweet>();
+                HashMap<String, Integer>stock=new HashMap<String, Integer>();
+                for(int i=0;i<n;i++) {
+                    Sweet s = new Sweet(array[k++], Double.parseDouble(array[k++]), Integer.parseInt(array[k++]));
+                    sweets.add(s);
+                    stock.put(s.getName(), Integer.parseInt(array[k++]));
+
+                }
+                CakeShop shop=new CakeShop(name,owner,deliveryBoys,sweets,stock);
+                shopId+=1;
+                shops.put(shopId, shop);
+
+                line = buffer.readLine();
+            }
+
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        //citire FastFood
+        try (BufferedReader buffer = new BufferedReader(new
+                FileReader("C:\\Users\\Lenovo\\Desktop\\Food-Delivery-Platform-Java-First-Phase\\Proiect PAO\\src\\com\\company\\FastFood.csv"))) {
+
+            String line = buffer.readLine();
+            while (line != null) {
+                String [] array=line.split(",");
+
+                int k=0;
+                Owner owner= new Owner(array[k++],array[k++],array[k++]);
+                int n=Integer.parseInt(array[k++]);
+                List<DeliveryBoy> deliveryBoys=new ArrayList<DeliveryBoy>();
+                for(int i=0;i<n;i++) {
+                    DeliveryBoy d = new DeliveryBoy(array[k++],array[k++],array[k++],array[k++]);
+                    deliveryBoys.add(d);
+                }
+
+                String name=array[k++];
+                n=Integer.parseInt(array[k++]);
+
+                List<Burger> burgers=new ArrayList<Burger>();
+                HashMap<String, Integer>stock=new HashMap<String, Integer>();
+                for(int i=0;i<n;i++) {
+                    Burger b = new Burger(array[k++], Double.parseDouble(array[k++]), Boolean.parseBoolean(array[k++]), array[k++]);
+                    burgers.add(b);
+                    stock.put(b.getName(), Integer.parseInt(array[k++]));
+
+                }
+                n=Integer.parseInt(array[k++]);
+
+                List<Drink> drinks=new ArrayList<Drink>();
+                for(int i=0;i<n;i++) {
+                    Drink d = new Drink(array[k++], Double.parseDouble(array[k++]), array[k++]);
+                    drinks.add(d);
+                    stock.put(d.getName(), Integer.parseInt(array[k++]));
+
+                }
+                n=Integer.parseInt(array[k++]);
+
+                List<Box> boxes=new ArrayList<Box>();
+                for(int i=0;i<n;i++) {
+                    Burger burger=new Burger(array[k++], Double.parseDouble(array[k++]), Boolean.parseBoolean(array[k++]), array[k++]);
+                    Box b = new Box(array[k++],drinks,burger,array[k++]);
+                    boxes.add(b);
+                    stock.put(b.getName(), Integer.parseInt(array[k++]));
+
+                }
+                FastFood shop=new FastFood(name,owner,deliveryBoys,boxes,drinks, burgers,stock);
+                shopId+=1;
+                shops.put(shopId, shop);
+
+                line = buffer.readLine();
+            }
+
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //citire Restaurant
+        try (BufferedReader buffer = new BufferedReader(new
+                FileReader("C:\\Users\\Lenovo\\Desktop\\Food-Delivery-Platform-Java-First-Phase\\Proiect PAO\\src\\com\\company\\Restaurant.csv"))) {
+
+            String line = buffer.readLine();
+            while (line != null) {
+                String [] array=line.split(",");
+
+                int k=0;
+                Owner owner= new Owner(array[k++],array[k++],array[k++]);
+                int n=Integer.parseInt(array[k++]);
+                List<DeliveryBoy> deliveryBoys=new ArrayList<DeliveryBoy>();
+                for(int i=0;i<n;i++) {
+                    DeliveryBoy d = new DeliveryBoy(array[k++],array[k++],array[k++],array[k++]);
+                    deliveryBoys.add(d);
+                }
+
+                String name=array[k++];
+                n=Integer.parseInt(array[k++]);
+
+                HashMap<String, Integer>stock=new HashMap<String, Integer>();
+                List<Drink> drinks=new ArrayList<Drink>();
+                for(int i=0;i<n;i++) {
+                    Drink d = new Drink(array[k++], Double.parseDouble(array[k++]), array[k++]);
+                    drinks.add(d);
+                    stock.put(d.getName(), Integer.parseInt(array[k++]));
+
+                }
+                n=Integer.parseInt(array[k++]);
+
+                List<RMenu> rMenus=new ArrayList<RMenu>();
+                for(int i=0;i<n;i++) {
+                    int x=Integer.parseInt(array[k++]);
+                    List<Sweet> sweets=new ArrayList<Sweet>();
+                    for(int j=0;j<x;j++){
+                        Sweet sweet=new Sweet(array[k++], Double.parseDouble(array[k++]), Integer.parseInt(array[k++]));
+                        sweets.add(sweet);
+                        //aici nu am stock ci am pe intreg meniul
+                    }
+                    int y=Integer.parseInt(array[k++]);
+                    List<RFood> rFoods=new ArrayList<RFood>();
+                    for(int j=0;j<y;j++){
+                        RFood rFood=new RFood(array[k++], Double.parseDouble(array[k++]), array[k++]);
+                        rFoods.add(rFood);
+                        //aici nu am stock ci am pe intreg meniul
+                    }
+
+                    RMenu rMenu=new RMenu(array[k++], drinks,sweets, rFoods);
+                    rMenus.add(rMenu);
+                    stock.put(rMenu.getName(), Integer.parseInt(array[k++]));
+                }
+                Restaurant shop=new Restaurant(name,owner,deliveryBoys,drinks, rMenus,stock);
+                shopId+=1;
+                shops.put(shopId, shop);
+
+                line = buffer.readLine();
+            }
+
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
     public static Service getInstance()
     {
         if (single_instance == null)
             single_instance = new Service();
         return single_instance;
     }
-    private Login login;
-    private HashMap<Integer, Shop> shops=new HashMap<Integer, Shop>();
-    private HashMap<Integer, Order> orders=new HashMap<Integer, Order>();
-    private User currentUser;
-    private int shopId;
-    private int orderId;
 
     public void addShop(){
         //adaugare restaurant de catre Admin

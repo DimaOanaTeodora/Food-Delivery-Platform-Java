@@ -1,5 +1,6 @@
 package com.company.User;
 
+import com.company.Product.Drink;
 import com.company.Shop.CakeShop;
 import com.company.Shop.FastFood;
 import com.company.Shop.Restaurant;
@@ -8,12 +9,12 @@ import com.company.Shop.Shop;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class DeliveryBoy extends User {
+public class DeliveryBoy extends Owner {
     private String carNumber;
 
     public DeliveryBoy(){}
     public DeliveryBoy(String name, String email, String phoneNumber,  String carNumber) {
-        super(name, email, phoneNumber, null);
+        super(name, email, phoneNumber);
         this.carNumber = carNumber;
     }
 
@@ -50,12 +51,14 @@ public class DeliveryBoy extends User {
     }
     @Override
     public String toString() {
-        return "DeliveryBoy{" +
-                "carNumber='" + carNumber + '\'' +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                '}';
+        String output="----Delivery Boy Information----\n";
+        output+="Name: "+this.name+"\n";
+        output+="Email: "+this.email+"\n";
+        output+="Car Number: "+this.carNumber+"\n";
+        output+="Phone: "+this.phoneNumber+"\n";
+
+        return output;
+
     }
 
     public void setCarNumber(String carNumber) {
@@ -74,4 +77,5 @@ public class DeliveryBoy extends User {
     public int hashCode() {
         return Objects.hash(carNumber);
     }
+
 }

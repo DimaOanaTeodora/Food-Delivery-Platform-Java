@@ -1,4 +1,8 @@
 package com.company.User;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 
 public class Login { //clasa singleton
@@ -8,7 +12,10 @@ public class Login { //clasa singleton
 
     private Login()
     {
+
         this.usersReg=new HashSet<User>();
+
+        //setare date admin
         String name="Admin";
         String email="admin@gmail.com";
         String phone="9999999999";
@@ -16,6 +23,21 @@ public class Login { //clasa singleton
         User admin=new User(name, email, phone, password);
         this.curentUser=null;
         this.usersReg.add(admin);
+
+        //citire useri din csv
+        try (BufferedReader buffer = new BufferedReader(new
+                FileReader("C:\\Users\\Lenovo\\Desktop\\Food-Delivery-Platform-Java-First-Phase\\Proiect PAO\\src\\com\\company\\Users.csv"))) {
+            String line = buffer.readLine();
+            while (line != null) {
+                String [] array=line.split(",");
+                User user=new User(array[0], array[1], array[2], array[3]);
+                this.usersReg.add(user);
+                line = buffer.readLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
     public static Login getInstance()
     {

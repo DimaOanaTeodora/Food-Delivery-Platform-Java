@@ -1,6 +1,5 @@
 package com.company.Menu;
 
-import com.company.Product.Burger;
 import com.company.Product.Drink;
 import com.company.Product.RFood;
 import com.company.Product.Sweet;
@@ -19,6 +18,7 @@ public class RMenu extends Menu {
         this.sweets = sweets;
         this.rfoods = rfoods;
 
+        //calcul pret
         double totalPrice=0;
         for(Drink it: drinks)
             totalPrice+=it.getPrice();
@@ -80,12 +80,19 @@ public class RMenu extends Menu {
 
     @Override
     public String toString() {
-        return "RMenu{" +
-                "sweets=" + sweets +
-                ", rfoods=" + rfoods +
-                ", name='" + name + '\'' +
-                ", drinks=" + drinks +
-                ", price=" + price +
-                '}';
+        String output="----Menu:Restaurant Menu-----\n";
+        output+="Name: "+this.name+"\n";
+        output+="Menu Price: "+this.price+"lei\n";
+        output+="->Desert Options:\n";
+        for(Sweet sweet : this.sweets)
+            output+=sweet;
+        output+="->Restaurant Food Options:\n";
+        for(RFood rFood: this.rfoods)
+            output+=rFood;
+        output+="->Drinks Options:\n";
+        for(Drink drink : this.drinks)
+            output+=drink;
+
+        return output;
     }
 }

@@ -13,15 +13,20 @@ public abstract class Shop implements Comparable<Shop> {
     protected Owner owner;
     protected List<DeliveryBoy> deliveryBoys;
     protected double rating;
+    HashMap<String, Integer>stock;//String = nume produs/meniu
 
-    public Shop(){this.deliveryBoys=new ArrayList<DeliveryBoy>();}
+    public Shop(){
+        this.deliveryBoys=new ArrayList<DeliveryBoy>();
+        this.stock =new HashMap<String, Integer>();
+    }
 
-    public Shop(String name, Owner owner, List<DeliveryBoy> deliveryBoys) {
+    public Shop(String name, Owner owner, List<DeliveryBoy> deliveryBoys, HashMap<String, Integer>stock) {
         this.name = name;
         this.owner = owner;
         this.deliveryBoys = deliveryBoys;
         this.rating =5;
-        this.deliveryBoys=new ArrayList<DeliveryBoy>();
+        //TODO: adaugare automata stock
+        this.stock = stock;
     }
     public void addRating(){
         Scanner var=new Scanner(System.in);

@@ -48,12 +48,13 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+        String output="----User Information----\n";
+        output+="Name: "+this.name+"\n";
+        output+="Email: "+this.email+"\n";
+        output+="Phone: "+this.phoneNumber+"\n";
+
+        return output;
+
     }
 
     public String getName() {

@@ -12,10 +12,9 @@ public class CakeShop extends Shop{
     private List<Sweet> sweets;
 
     public CakeShop(){this.sweets=new ArrayList<Sweet>();}
-    public CakeShop(String name, Owner owner, List<DeliveryBoy> deliveryBoys,  List<Sweet> sweets) {
-        super(name, owner, deliveryBoys);
+    public CakeShop(String name, Owner owner, List<DeliveryBoy> deliveryBoys,  List<Sweet> sweets, HashMap<String, Integer>stock) {
+        super(name, owner, deliveryBoys, stock);
         this.sweets = sweets;
-        this.sweets=new ArrayList<Sweet>();
     }
     @Override
     public void reader(){
@@ -42,6 +41,10 @@ public class CakeShop extends Shop{
             Sweet sweet=new Sweet();
             sweet.reader();
             sweets.add(sweet);
+
+            System.out.print("Introduce the stock of "+sweet.getName()+" :");
+            int quantity=var.nextInt();
+            stock.put(sweet.getName(), quantity);
         }
 
         Owner owner=new Owner();
@@ -52,13 +55,21 @@ public class CakeShop extends Shop{
 
     @Override
     public String toString() {
-        return "CakeShop{" +
-                "sweets=" + sweets +
-                ", name='" + name + '\'' +
-                ", owner=" + owner +
-                ", deliveryBoys=" + deliveryBoys +
-                ", rating=" + rating +
-                '}';
+        String output="------CakeShop----------\n";
+        output+="Name: "+ this.name+"\n";
+        output+=this.owner+"\n";
+        output+="->List of Deliveryboys:\n ";
+        for (DeliveryBoy db: this.deliveryBoys){
+            output+= db +"\n";
+        }
+
+        output+="Restaurant rating: "+ this.rating+"\n";
+        output+="->List of Sweets: \n";
+        for (Sweet sweet: this.sweets){
+            output+= sweet + "Stock:" + stock.get(sweet.getName()) +"\n";
+        }
+
+        return output;
     }
 
     @Override
