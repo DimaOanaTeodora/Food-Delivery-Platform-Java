@@ -94,7 +94,7 @@ public class FastFood extends Shop {
 
     @Override
     public String toString() {
-        String output="------FastFood----------";
+        String output="------FastFood----------\n";
         output+="Name: "+ this.name+"\n";
         output+=this.owner+"\n";
         output+="Restaurant rating: "+ this.rating+"\n";

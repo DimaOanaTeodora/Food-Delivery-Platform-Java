@@ -1,30 +1,17 @@
 package com.company;
 
-import com.company.Menu.Box;
-import com.company.Menu.Menu;
-import com.company.Menu.RMenu;
-import com.company.Product.*;
-import com.company.Shop.CakeShop;
-import com.company.Shop.FastFood;
-import com.company.Shop.Restaurant;
-import com.company.Shop.Shop;
-import com.company.User.DeliveryBoy;
-import com.company.User.Login;
-import com.company.User.User;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.*;
-import java.util.List;
 
 
 public class Main {
 
     public static void main(String[] args) {
-    //TODO: de refacut afisarile la toate
+
     // TODO: Cand fac un menu trebuie sa scad numarul din stock-uri
-     //TODO:Calea relativa
+     //TODO:am verificat add shop, list shops, sign in/up, log off, delete shop,
+        // TODO: de adaugat posibilitatea de a adauga un rating la un shop
+        //TODO: La add a product de adaugat stock-ul
+        //TODO: de inlocuit cu o metoda de listare a unui shop dupa nume
 
 
         Service service = Service.getInstance();

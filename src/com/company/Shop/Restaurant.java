@@ -74,7 +74,7 @@ public class Restaurant extends Shop {
 
     @Override
     public String toString() {
-        String output="------Restaurant----------";
+        String output="------Restaurant----------\n";
         output+="Name: "+ this.name+"\n";
         output+= this.owner+"\n";
         output+="Restaurant rating: "+ this.rating+"\n";

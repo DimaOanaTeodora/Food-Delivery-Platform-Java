@@ -12,31 +12,9 @@ public class Login { //clasa singleton
 
     private Login()
     {
-
         this.usersReg=new HashSet<User>();
-
-        //setare date admin
-        String name="Admin";
-        String email="admin@gmail.com";
-        String phone="9999999999";
-        String password="Admin01";
-        User admin=new User(name, email, phone, password);
         this.curentUser=null;
-        this.usersReg.add(admin);
 
-        //citire useri din csv
-        try (BufferedReader buffer = new BufferedReader(new
-                FileReader("C:\\Users\\Lenovo\\Desktop\\Food-Delivery-Platform-Java-First-Phase\\Proiect PAO\\src\\com\\company\\Users.csv"))) {
-            String line = buffer.readLine();
-            while (line != null) {
-                String [] array=line.split(",");
-                User user=new User(array[0], array[1], array[2], array[3]);
-                this.usersReg.add(user);
-                line = buffer.readLine();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
     }
     public static Login getInstance()
@@ -76,5 +54,9 @@ public class Login { //clasa singleton
 
     public void setCurentUser(User curentUser) {
         this.curentUser = curentUser;
+    }
+
+    public void setUsersReg(Set<User> usersReg) {
+        this.usersReg = usersReg;
     }
 }
