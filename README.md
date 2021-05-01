@@ -1,3 +1,14 @@
+### Cerinte a doua etapa:
+1. 5 fisiere de tip CSV :ballot_box_with_check:
+    - Users.csv -> User.class
+    - Restauran.csv -> Restaurant.class
+    - FastFood.csv -> FastFood.class
+    - CakeShop.csv -> CakeShop.class
+    - Audit.csv -> fisierul de audit
+2. servicii singleton pentru scrierea si citirea din fisier :ballot_box_with_check:
+    - Reading.class -> citire din fisier
+    - Writing.class -> serviciu de audit
+
 ### Cerinte prima etapa:
 1. 12 actiuni :ballot_box_with_check:
 2. 19 clase :ballot_box_with_check:
@@ -9,8 +20,6 @@
 ## Product (abstract)
 - name
 - price
-- measurement
-- quantity
     ### Burger:
         - isVegan
         - ingredients
@@ -43,13 +52,16 @@
         - burgers (List -> ArrayList) -> composition
     ### Restaurant:
         - rMenus (List -> ArrayList) -> composition
+        - drinks (List -> ArrayList) -> composition
 ## User
 - name
 - email
 - phoneNumber
 - password
-    ### Owner:
-        - shop -> composition
+### Owner:
+- name
+- email
+- phoneNumber
     ### DeliveryBoy:
         - carNumber
        
@@ -73,21 +85,24 @@
 - currentUser -> composition
 - shopId
 - orderId
-    - Actions:  
+- reading -> composition
+- writing -> composition
+    - Actiuni: *comune admin-user*
         - logIn() -> logare utilizator sau posibilitatea de a se inregistra in sistem (se pot loga cumparatorii sau adminul)
         - logOff() -> posibilitatea de sing in/up ca alt utilizator 
-    - Actions -> *Admin can acces*
+        - listShops() -> afisare magazine impreuna cu lista produselor si a meniurilor 
+        - listOneShop() -> afsare un singur magazin dupa nume
+    - Actiuni: *Specifice admin*
         - addShop() -> adaugare magazin in lista de magazine (implicit lista de produse si meniuri)
         - deleteShop() -> stergere magazin din lista existenta
-        - listShops() -> afisare magazine impreuna cu lista produselor si a meniurilor 
         - addProduct() -> adaugare produs intr-un magazin dat prin nume
         - deleteProduct() -> stergere produs dintr-un magazin dat prin nume
         - addMenu() -> adaugare meniu
-    - Actions -> *User can acces* 
-        - listShops() -> afisare magazine impreuna cu lista produselor si a meniurilor 
+    - Actiuni: *Specifice user* 
         - addOrder() -> plasare comanda
         - cancelOrder() -> anulare plasare comanda prin id-ul comenzii
-        - getPopularShops() -> afisare magazine sortate descrescator dupa rating
+        - rateAShop() -> oferire puncte de rating de la 0-5 unui magazin dat dupa nume
+        - sortShops() -> afisare magazine sortate descrescator dupa rating
 
-## Main (Calls for service class)
--> afiseaza lista de actiuni in functie de tipul utilizatorului logat admin/ cumparator
+## Main (apeluri catre clasa de serviciu Service.class)
+-> ca un meniu al programului

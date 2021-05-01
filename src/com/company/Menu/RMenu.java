@@ -95,4 +95,12 @@ public class RMenu extends Menu {
 
         return output;
     }
+
+    public List<Sweet> getSweets() {
+        return sweets;
+    }
+
+    public List<RFood> getRfoods() {
+        return rfoods;
+    }
 }

@@ -1,6 +1,8 @@
 package com.company.Shop;
 
 import com.company.Menu.Menu;
+import com.company.Product.Burger;
+import com.company.Product.Drink;
 import com.company.Product.Product;
 import com.company.Product.Sweet;
 import com.company.User.DeliveryBoy;
@@ -111,4 +113,9 @@ public class CakeShop extends Shop{
     public int hashCode() {
         return Objects.hash(sweets);
     }
+
+    public List<Sweet> getSweets() {
+        return sweets;
+    }
+
 }

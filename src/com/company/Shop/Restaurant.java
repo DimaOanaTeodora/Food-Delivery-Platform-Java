@@ -1,4 +1,5 @@
 package com.company.Shop;
+
  import com.company.Menu.Box;
  import com.company.Menu.Menu;
  import com.company.Menu.RMenu;
@@ -105,9 +106,72 @@ public class Restaurant extends Shop {
 
     @Override
     public List<Product> getProducts() {
-        return null;
+        List<Product> l = new ArrayList<Product>();
+        for (Drink it : drinks) {
+            l.add(it);
+        }
+
+        return l;
     }
     public void addrMenu(RMenu menu){
         rMenus.add(menu);
+    }
+    public void addDrink(Drink drink) {
+        drinks.add(drink);
+    }
+    public void removeDrink(Drink drink){
+        for(Drink it: drinks) {
+            if (it.equals(drink)) {
+                drinks.remove(drink);
+                break;
+            }
+        }
+    }
+
+    public List<Drink> getDrinks() {
+        return drinks;
+    }
+
+    public RMenu orderRMenu(RMenu chooseFrom){
+        Scanner var=new Scanner(System.in);
+        List <Sweet> S=new ArrayList<Sweet>();
+        int i=0;
+        System.out.println("->List of sweets to choose:");
+        for(Sweet sweet: chooseFrom.getSweets() ) {
+            System.out.println("Sweet number "+ i+ ":\n");
+            i++;
+            System.out.println(sweet);
+        }
+        System.out.print("->Choose a sweet number:");
+        int choose=var.nextInt();
+        S.add(chooseFrom.getSweets().get(choose));
+
+        List <RFood> R=new ArrayList<RFood>();
+        i=0;
+        System.out.println("->List of meals to choose:");
+        for(RFood rFood: chooseFrom.getRfoods() ) {
+            System.out.println("Meal number "+ i+ ":\n");
+            i++;
+            System.out.println(rFood);
+        }
+        System.out.print("->Choose a meal number:");
+        choose=var.nextInt();
+        R.add(chooseFrom.getRfoods().get(choose));
+
+        List <Drink> D=new ArrayList<Drink>();
+        i=0;
+        System.out.println("->List of drinks to choose:");
+        for(Drink drink: chooseFrom.getDrinks()) {
+            System.out.println("Drink number "+ i+ ":\n");
+            i++;
+            System.out.println(drink);
+        }
+        System.out.print("->Choose a drink number:");
+        choose=var.nextInt();
+        D.add((chooseFrom.getDrinks()).get(choose));
+
+        RMenu rMenu=new RMenu(chooseFrom.getName(),D,S,R);
+        return rMenu;
+
     }
 }

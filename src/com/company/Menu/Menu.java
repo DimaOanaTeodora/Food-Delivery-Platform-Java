@@ -26,4 +26,8 @@ public abstract class Menu {
     public String getName() {
         return name;
     }
+
+    public List<Drink> getDrinks() {
+        return drinks;
+    }
 }

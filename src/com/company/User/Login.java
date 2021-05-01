@@ -1,8 +1,5 @@
 package com.company.User;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+
 import java.util.*;
 
 public class Login { //clasa singleton
@@ -14,9 +11,9 @@ public class Login { //clasa singleton
     {
         this.usersReg=new HashSet<User>();
         this.curentUser=null;
-
-
     }
+
+
     public static Login getInstance()
     {
         if (single_instance == null)

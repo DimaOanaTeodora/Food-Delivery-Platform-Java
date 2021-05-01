@@ -1,11 +1,5 @@
 package com.company.User;
 
-import com.company.Product.Drink;
-import com.company.Shop.CakeShop;
-import com.company.Shop.FastFood;
-import com.company.Shop.Restaurant;
-import com.company.Shop.Shop;
-
 import java.util.Objects;
 import java.util.Scanner;
 

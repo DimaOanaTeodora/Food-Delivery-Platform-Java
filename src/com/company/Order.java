@@ -1,6 +1,8 @@
 package com.company;
 
+import com.company.Menu.Box;
 import com.company.Menu.Menu;
+import com.company.Menu.RMenu;
 import com.company.Product.Product;
 import com.company.Shop.CakeShop;
 import com.company.Shop.FastFood;
@@ -19,6 +21,7 @@ public class Order {
     private List<Menu> menus;
     private List<Product> products;
     private String address;
+
     public Order(){
         this.menus=new ArrayList<Menu>();
         this.products=new ArrayList<Product>();
@@ -35,9 +38,9 @@ public class Order {
         // [min, max)
         return (int) ((Math.random() * (max - min)) + min);
     }
-    public void setDeliveryBoy(Shop shop) {
+    public void setDeliveryBoy() {
         //aleg random un baiat de livrat
-        List<DeliveryBoy> D=shop.getDeliveryBoys();
+        List<DeliveryBoy> D=this.shop.getDeliveryBoys();
         int random=getRandomNumber(0,D.size());
         this.deliveryBoy=D.get(random);
     }
@@ -70,15 +73,19 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" +
-                "customer=" + customer +
-                ", shop=" + shop +
-                ", deliveryBoy=" + deliveryBoy +
-                ", price=" + price +
-                ", menus=" + menus +
-                ", products=" + products +
-                ", address='" + address + '\'' +
-                '}';
+        String output=""+this.customer+"\n";
+        output+="*Value: "+this.price+" lei\n";
+        output+="*Delivery address: "+this.address+"\n";
+        output+=this.deliveryBoy;
+        output+="*Shop: "+this.shop.getName()+"\n";
+        output+="**The menus you chooes:**\n";
+        for(Menu it: this.menus)
+            output+=it;
+        output+="**The products you chooes:**\n";
+        for(Product it: this.products)
+            output+=it;
+
+        return output;
     }
     public void reader(HashMap<Integer, Shop> shops){
         Scanner var=new Scanner(System.in);
@@ -102,66 +109,86 @@ public class Order {
             System.out.print("Choose one shop: ");
             String name = var.nextLine();
 
-            Shop shop = null;
+
+            itr = set.iterator();//reinitializare iterator
             while (itr.hasNext()) {
                 //Convertire la Map.Entry ca sa pot lua fiecare cheie separata
                 Map.Entry entry = (Map.Entry) itr.next();
+
                 if (((Shop) entry.getValue()).getName().equalsIgnoreCase(name)) {
-                    //shop=(Shop) entry.getValue();
                     //Downcasting
                     if (entry.getValue() instanceof CakeShop)
-                        shop = (CakeShop) entry.getValue();
+                        this.shop  = (CakeShop) entry.getValue();
                     else if (entry.getValue() instanceof FastFood)
-                        shop = (FastFood) entry.getValue();
+                        this.shop = (FastFood) entry.getValue();
                     else
-                        shop = (Restaurant) entry.getValue();
+                        this.shop  = (Restaurant) entry.getValue();
                     break;
                 }
             }
-            this.shop = shop;
 
             //aleg random un baiat de livrat
-            this.setDeliveryBoy(shop);
+            this.setDeliveryBoy();
 
-            List<Product> products = shop.getProducts();
-            List<Menu> menus = shop.getMenus();
+            List<Product> products = this.shop.getProducts();
             int choose = 0;
             System.out.println("->The products are:");
             for (int i = 0; i < products.size(); i++) {
-                System.out.println("->Product number " + i + "is:");
+                System.out.println("->Product number " + i + " is:");
                 System.out.println(products.get(i));
             }
 
-            String answer;
-            System.out.print("->Do you want to add a menu?(yes/no):");
-            answer = var.nextLine();
-            if (answer.equalsIgnoreCase("yes")) {
-                System.out.println("Choose products:");
-                while (true) {
-                    System.out.println("Choose the product wtih number:");
-                    choose = var.nextInt();
-                    this.setProducts(products.get(choose));
-                    System.out.print("Do you want to add another?(yes/no):");
-                    answer = var.nextLine();
-                    if (answer.equalsIgnoreCase("no"))
-                        break;
-                }
-            }
+            List<Menu> menus = this.shop.getMenus();
             System.out.println("->The menus are:");
             for (int i = 0; i < menus.size(); i++) {
-                System.out.println("Menu number " + i + "is:");
+                System.out.println("Menu number " + i + " is:");
                 System.out.println(menus.get(i));
             }
 
             System.out.print("->Do you want to add a menu?(yes/no):");
-            answer = var.nextLine();
+            String answer = var.nextLine();
             if (answer.equalsIgnoreCase("yes")) {
 
                 while (true) {
-                    System.out.println("Choose menu number:");
+                    System.out.print("Choose menu number:");
+                    //trebuie sa afisez lista de bauturi si/sau mancaruri si
+                    // sa fac un nou meniu format cu cate unul din fiecare
+                    //=> fac o functie care sa-mi returneze un astfel de meniu pe care il adaug la comanda
+                    //orderBox(Box)
+                    //orderRMenu(RMenu)
                     choose = var.nextInt();
-                    this.setMenus(menus.get(choose));
+                    Menu menu;
+                    if (this.shop instanceof FastFood)
+                       menu= ((FastFood) this.shop).orderBox((Box) menus.get(choose));
+                    else
+                        menu=((Restaurant) this.shop).orderRMenu((RMenu) menus.get(choose));
+                    this.setMenus(menu);
+                    //scad stock-ul
+                    this.shop.StockLower(menu.getName());
+
                     System.out.print("Do you want to add another?(yes/no):");
+                    var.nextLine();
+                    answer = var.nextLine();
+                    if (answer.equalsIgnoreCase("no"))
+                        break;
+
+                }
+            }
+
+            System.out.print("->Do you want to add a product?(yes/no):");
+            answer = var.nextLine();
+            if (answer.equalsIgnoreCase("yes")) {
+                System.out.println("Choose products:");
+                while (true) {
+                    System.out.print("Choose product number:");
+                    choose = var.nextInt();
+                    this.setProducts(products.get(choose));
+
+                    //scad stock-ul
+                    this.shop.StockLower((products.get(choose)).getName());
+
+                    System.out.print("Do you want to add another?(yes/no):");
+                    var.nextLine();
                     answer = var.nextLine();
                     if (answer.equalsIgnoreCase("no"))
                         break;

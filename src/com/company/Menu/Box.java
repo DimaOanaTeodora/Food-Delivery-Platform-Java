@@ -27,6 +27,10 @@ public class Box extends Menu{
 
     }
 
+    public String getFries() {
+        return fries;
+    }
+
     @Override
     public void reader() {
         Scanner var=new Scanner (System.in);
@@ -79,5 +83,10 @@ public class Box extends Menu{
         return output;
 
     }
+
+    public Burger getBurger() {
+        return burger;
+    }
+
 
 }

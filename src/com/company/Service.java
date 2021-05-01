@@ -13,6 +13,14 @@ import com.company.User.User;
 
 import java.util.*;
 
+class SortByRating  implements Comparator<Shop>{
+    public int compare(Shop shop1, Shop shop2)
+    {
+        if(shop1.getRating() < shop2.getRating())return -1;
+        else
+            return 1;
+    }
+}
 public class Service { //singleton
 
     private static Service single_instance = null;
@@ -147,7 +155,7 @@ public class Service { //singleton
         order.setPrice();
         if(order.getPrice()>0.0) {
             System.out.println("The order's price is: " + order.getPrice());
-            System.out.println("--->Your order is: \n" + "Oder ID:"+ orderId+ order);
+            System.out.println("\n***********Your order***********\n" + "\nOder ID:"+ orderId+"\n\n"+ order+"\n");
             System.out.print("Do you want to place the order?(yes/no):");
             String answer = var.nextLine();
             if (answer.equalsIgnoreCase("yes")) {
@@ -201,6 +209,11 @@ public class Service { //singleton
                     Sweet sweet=new Sweet();
                     sweet.reader();
                     ((CakeShop)entry.getValue()).addSweet(sweet);
+
+                    System.out.print("Stock of the product: ");
+                    int stock= var.nextInt();
+                    ((CakeShop) entry.getValue()).updateStock(sweet.getName(), stock);
+
                     System.out.println("The product was added succesfully");
                 }
                 else if(entry.getValue() instanceof FastFood){
@@ -217,7 +230,22 @@ public class Service { //singleton
                         product = new Drink();
                         product.reader();
                         ((FastFood) entry.getValue()).addDrink((Drink) product);
+
                     }
+                    System.out.print("Stock of the product: ");
+                    int stock= var.nextInt();
+                    ((FastFood) entry.getValue()).updateStock(product.getName(), stock);
+                    System.out.println("The product was added succesfully");
+                }
+                else if(entry.getValue() instanceof Restaurant){
+                    System.out.println("Restaurant");
+                    System.out.print("Add a drink:");
+                    Drink drink= new Drink();
+                    drink.reader();
+                    ((Restaurant) entry.getValue()).addDrink(drink);
+                    System.out.print("Stock of the product: ");
+                    int stock= var.nextInt();
+                    ((FastFood) entry.getValue()).updateStock(drink.getName(), stock);
                     System.out.println("The product was added succesfully");
                 }
                 else
@@ -225,6 +253,7 @@ public class Service { //singleton
                     System.out.println("No products found");
                 }
                 break;
+
             }
 
         }
@@ -250,22 +279,26 @@ public class Service { //singleton
                     System.out.println("Cake Shop");
                     System.out.print("Introduce the name of the cake you want to remove:");
                     String Name=var.nextLine();
-                    List<Product> products=((CakeShop)entry.getValue()).getProducts();
-                    for(Product it: products) {
+                    List<Sweet> sweets=((CakeShop)entry.getValue()).getSweets();
+                    for(Sweet it: sweets) {
                         if(it.getName().equalsIgnoreCase(Name))
                         {
-                            ((CakeShop)entry.getValue()).removeSweet((Sweet) it);
+                            ((CakeShop)entry.getValue()).removeSweet(it);
+                            //trebuie sa-l sterg si din stock
+                            ((CakeShop)entry.getValue()).removeProductFromStock(it.getName());
                             System.out.println("The product was removed succesfully");
                             break;
                         }
                     }
 
+
                 }
                 else if(entry.getValue() instanceof FastFood){
                     System.out.println("Fast Food");
-                    System.out.print("Introduce the name of the cake you want to remove:");
+                    System.out.print("Introduce the name of the product you want to remove:");
                     String Name=var.nextLine();
                     List<Product> products=((FastFood)entry.getValue()).getProducts();
+                    //System.out.println(products);
                     for(Product it: products) {
                         if(it.getName().equalsIgnoreCase(Name))
                         {
@@ -273,10 +306,30 @@ public class Service { //singleton
                                 ((FastFood)entry.getValue()).removeBurger((Burger) it);
                             else
                                 ((FastFood)entry.getValue()).removeDrink((Drink) it);
+
+                            //trebuie sa-l sterg si din stock
+                            ((FastFood)entry.getValue()).removeProductFromStock(it.getName());
                             System.out.println("The product was removed succesfully");
                             break;
                         }
                     }
+                }
+                else if(entry.getValue() instanceof Restaurant){
+                    System.out.println("Restaurant");
+                    System.out.print("Introduce the name of the drink you want to remove:");
+                    String Name=var.nextLine();
+                    List<Drink> drinks=((Restaurant)entry.getValue()).getDrinks();
+                    for(Drink it: drinks) {
+                        if(it.getName().equalsIgnoreCase(Name))
+                        {
+                            ((Restaurant)entry.getValue()).removeDrink(it);
+                            //trebuie sa-l sterg si din stock
+                            ((Restaurant)entry.getValue()).removeProductFromStock(it.getName());
+                            System.out.println("The product was removed succesfully");
+                            break;
+                        }
+                    }
+
                 }
                 else
                 {
@@ -288,17 +341,63 @@ public class Service { //singleton
         }
     }
 
-    public void getPopularShops(){
-        writing.WriteTimestamp("Get Popular Shops");
+    public void listOneShop() {
+        Scanner var = new Scanner(System.in);
+        writing.WriteTimestamp("List One Shop");
+
+        System.out.print("Introduce the name of the shop do you want to show:");
+        String name = var.nextLine();
+        System.out.println("------->" + name + "<---------");
+
+        Set set = shops.entrySet();//Convertire la set ca sa pot itera
+        Iterator itr = set.iterator();
+        while (itr.hasNext()) {
+            //Convertire la Map.Entry ca sa pot lua fiecare cheie separata
+            Map.Entry entry = (Map.Entry) itr.next();
+            if (((Shop) entry.getValue()).getName().equalsIgnoreCase(name)) {
+                System.out.println((Shop) entry.getValue());
+                break;
+            }
+
+        }
+    }
+
+    public void sortShops(){
+        //sortare magazine descrecator dupa rating
+        writing.WriteTimestamp("Sorting Shops by rating");
         //afisare restaurante populare in urma ratingului
-        TreeMap<Integer, Shop> sorted = new TreeMap<>(shops);
-        sorted.putAll(shops);
+
+
+        Map<Shop, Integer> sorted = new TreeMap<>(new Comparator<Shop>() {
+            @Override
+            public int compare(Shop o1, Shop o2) {
+
+                if (o1.getRating()<o2.getRating() ) return -1;
+                return 1;
+            }
+        });
+
+        /*
+        Comparator<Shop> c=new Comparator<Shop>() {
+
+            @Override
+            public int compare(Shop shop1, Shop shop2)
+            {
+                if(shop1.getRating() < shop2.getRating())return -1;
+                else
+                    return 1;
+            }
+
+        };
+        TreeMap<Integer, Shop> sorted = new TreeMap<Integer, Shop>(shops);
+
         //afisare
         for (Map.Entry<Integer, Shop>
                 entry : sorted.entrySet())
             System.out.println(
-                    "[" + entry.getKey()
-                            + ", " + entry.getValue() + "]");
+                    entry.getValue().getName()+" --->Rating:"+entry.getValue().getRating());
+
+         */
     }
 
     public void addMenu(){
@@ -320,6 +419,11 @@ public class Service { //singleton
                     RMenu rMenu=new RMenu();
                     rMenu.reader();
                     ((Restaurant)entry.getValue()).addrMenu(rMenu);
+
+                    System.out.print("Stock of the restaurant menu: ");
+                    int stock= var.nextInt();
+                    ((Restaurant) entry.getValue()).updateStock(rMenu.getName(), stock);
+
                     System.out.println("The menu was added succesfully");
                 }
                 else if(entry.getValue() instanceof FastFood){
@@ -327,6 +431,11 @@ public class Service { //singleton
                     Box box=new Box();
                     box.reader();
                     ((FastFood)entry.getValue()).addBox(box);
+
+                    System.out.print("Stock of the box: ");
+                    int stock= var.nextInt();
+                    ((FastFood) entry.getValue()).updateStock(box.getName(), stock);
+
                     System.out.println("The box was added succesfully");
                 }
                 else
@@ -366,7 +475,7 @@ public class Service { //singleton
                     break;
                 }
                 else {
-                    System.out.println("Login unsuccessfully, "+email+" doesn't exists");
+                    System.out.println("Login unsuccessfully, wrong password or email");
 
                 }
 
@@ -386,6 +495,45 @@ public class Service { //singleton
             }
         }
         return type;
+    }
+
+    public void rateAShop(){
+        writing.WriteTimestamp("Rate a shop");
+
+        Scanner var=new Scanner((System.in));
+        System.out.println("->List of shops: ");
+        if(shops.isEmpty())
+            System.out.println("Shops not found");
+        else {
+
+            Set set = shops.entrySet();//Convertire la set ca sa pot itera
+            Iterator itr = set.iterator();
+            while (itr.hasNext()) {
+                //Convertire la Map.Entry ca sa pot lua fiecare cheie separata
+                Map.Entry entry = (Map.Entry) itr.next();
+                System.out.println(((Shop) entry.getValue()).getName());
+            }
+            System.out.print("Choose one shop: ");
+            String name = var.nextLine();
+            //cautare magazin introdus
+            itr = set.iterator();//reinitializare iterator
+            Shop shop;
+            while (itr.hasNext()) {
+                //Convertire la Map.Entry ca sa pot lua fiecare cheie separata
+                Map.Entry entry = (Map.Entry) itr.next();
+
+                if (((Shop) entry.getValue()).getName().equalsIgnoreCase(name)) {
+                    shop = (Shop) entry.getValue();
+                    System.out.print("Give points between 0-5: ");
+                    int points=var.nextInt();
+                    shop.setRating(points);
+                    System.out.println("Thank you for rating us!");
+                    break;
+                }
+            }
+
+        }
+
     }
 
     public String getCurentUserEmail(){

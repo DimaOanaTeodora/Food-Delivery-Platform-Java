@@ -120,7 +120,7 @@ public class FastFood extends Shop {
 
     @Override
     public List<Menu> getMenus() {
-        List<Menu> l = null;
+        List<Menu> l = new ArrayList<Menu>();
         for (Box it : boxes) {
             l.add(it);
         }
@@ -129,7 +129,7 @@ public class FastFood extends Shop {
 
     @Override
     public List<Product> getProducts() {
-        List<Product> l = null;
+        List<Product> l = new ArrayList<Product>();
         for (Drink it : drinks) {
             l.add(it);
         }
@@ -180,5 +180,23 @@ public class FastFood extends Shop {
     @Override
     public int hashCode() {
         return Objects.hash(boxes, drinks, burgers);
+    }
+
+    public Box orderBox(Box chooseFrom){
+        Scanner var=new Scanner(System.in);
+        List <Drink> D=new ArrayList<Drink>();
+        int i=0;
+        System.out.println("->List of drinks to choose:");
+        for(Drink drink: chooseFrom.getDrinks()) {
+            System.out.println("Drink number "+ i+ ":\n");
+            i++;
+            System.out.println(drink);
+        }
+        System.out.print("->Choose a drink number:");
+        int choose=var.nextInt();
+        D.add((chooseFrom.getDrinks()).get(choose));
+        Box box=new Box (chooseFrom.getName(), D, chooseFrom.getBurger(), chooseFrom.getFries());
+        return box;
+
     }
 }

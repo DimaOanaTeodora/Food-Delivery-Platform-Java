@@ -5,13 +5,39 @@ import java.util.*;
 
 public class Main {
 
+    public static void listActionsForAdmin(){
+        System.out.println("->Signed as admin");
+        System.out.println("--->Your actions<---");
+        System.out.println("1)Add Shop");//done
+        System.out.println("2)Remove Shop");//done
+        System.out.println("3)Add a product");//done
+        System.out.println("4)Delete a product");//done
+        System.out.println("5)Add a menu");//done
+        System.out.println("6)Log Off");//done
+        System.out.println("7)List shops");//done
+        System.out.println("8)List one shop");//done
+        System.out.print("->What operation you choose?(1/2/3/4/5/6/7/8):");
+    }
+    public static void listActionsForUser(Service service){
+        System.out.println("->Signed as "+ service.getCurentUserEmail());
+        System.out.println("--->Your actions<---");
+        System.out.println("1)List shops");//done
+        System.out.println("2)List one shop");//done
+        System.out.println("3)Sorting shops by rating ");
+        System.out.println("4)Place an order");
+        System.out.println("5)Cancel an order");
+        System.out.println("6)Log Off");//done
+        System.out.println("7)Rate one shop");//done
+        System.out.print("->What operation you choose?(1/2/3/4/5/6/7):");
+    }
+
     public static void main(String[] args) {
 
-    // TODO: Cand fac un menu trebuie sa scad numarul din stock-uri
-     //TODO:am verificat add shop, list shops, sign in/up, log off, delete shop,
-        // TODO: de adaugat posibilitatea de a adauga un rating la un shop
-        //TODO: La add a product de adaugat stock-ul
-        //TODO: de inlocuit cu o metoda de listare a unui shop dupa nume
+        //TODO: Cand fac un menu trebuie sa scad numarul din stock-uri
+        //TODO: de adaugat posibilitatea de a adauga un rating la un shop
+        //TODO: de regandit lista de bauturi de la Restaurant
+        //TODO: de scazut stock-ul la comandarea unui produs
+        //TODO: de regandit clasele: User, Owner, DelieveryBoy
 
 
         Service service = Service.getInstance();
@@ -19,17 +45,9 @@ public class Main {
         if(service.logIn()==1){
             //Actiuni Admin
             Scanner var=new Scanner(System.in);
-            System.out.println("->Signed as admin");
-            System.out.println("--->Your actions<---");
-            System.out.println("1)Add Shop");
-            System.out.println("2)Remove Shop");
-            System.out.println("3)Add a product");
-            System.out.println("4)Delete a product");
-            System.out.println("5)Add a menu");
-            System.out.println("6)Log Off");
-            System.out.println("7)List shops");
+
             while(true) {
-                System.out.print("->What operation you choose?(1/2/3/4/5/6/7):");
+                listActionsForAdmin();
                 int choose =var.nextInt();
                 var.nextLine();
                 if (choose == 1) {
@@ -56,6 +74,10 @@ public class Main {
                     //afisare magazine
                     service.listShops();
                 }
+                else if (choose == 8) {
+                    //afisare magazine
+                    service.listOneShop();
+                }
                 System.out.print("Do you want another action?(yes/no):");
                 String answer=var.nextLine();
                 if(answer.equalsIgnoreCase("no"))
@@ -66,34 +88,39 @@ public class Main {
         else {
 
             Scanner var=new Scanner(System.in);
-            System.out.println("->Signed as "+ service.getCurentUserEmail());
-            System.out.println("--->Your actions<---");
-            System.out.println("1)List shops");
-            System.out.println("2)List popular shops");
-            System.out.println("3)Place an order");
-            System.out.println("4)Cancel an order");
-            System.out.println("5)Log Off");
+
             while(true) {
-                System.out.print("->What operation you choose?(1/2/3/4/5):");
+                listActionsForUser(service);
                 int choose =var.nextInt();
                 var.nextLine();
                 if (choose == 1) {
                     //afisare magazine
                     service.listShops();
                 } else if (choose == 2) {
-                    //afisare magazine sortate dupa rating
-                    service.getPopularShops();
+                    //afisare un singur magazin dupa nume
+                    service.listOneShop();
                 } else if (choose == 3) {
+                    //sortare magazine descrescator dupa rating
+                    service.sortShops();
+
+                } else if (choose == 4) {
                     //plasare comanda
                     service.addOrder();
-                } else if (choose == 4) {
+
+                } else if (choose == 5) {
                     //anulare comanda
                     service.cancelOrder();
-                } else if (choose == 5) {
+                }
+                else if (choose == 6) {
                     //delogare
                     service.logOff();
                     break;
                 }
+                else if (choose == 7) {
+                    //adaugare rating magazin
+                    service.rateAShop();
+                }
+
                 System.out.print("Do you want another action?(yes/no):");
                 String answer=var.nextLine();
                 if(answer.equalsIgnoreCase("no"))

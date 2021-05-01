@@ -7,7 +7,7 @@ import com.company.User.Owner;
 
 import java.util.*;
 
-public abstract class Shop implements Comparable<Shop> {
+public abstract class Shop {
 
     protected String name;
     protected Owner owner;
@@ -24,8 +24,7 @@ public abstract class Shop implements Comparable<Shop> {
         this.name = name;
         this.owner = owner;
         this.deliveryBoys = deliveryBoys;
-        this.rating =5;
-        //TODO: adaugare automata stock
+        this.rating =0;
         this.stock = stock;
     }
     public void addRating(){
@@ -62,10 +61,7 @@ public abstract class Shop implements Comparable<Shop> {
     public double getRating() {
         return rating;
     }
-    @Override
-    public int compareTo(Shop shop){
-        return (int)(this.getRating()- shop.getRating());
-    }
+
     public void updateDeliveryBoy(DeliveryBoy d){
         int poz=0;
         for(int i=0;i<deliveryBoys.size();i++)
@@ -91,6 +87,29 @@ public abstract class Shop implements Comparable<Shop> {
         }
         deliveryBoys.set(poz, d);
 
+    }
+
+    public void updateStock(String productName, int stock){
+        this.stock.put(productName, stock);
+    }
+
+    public void removeProductFromStock(String productName) {
+        Iterator it = this.stock.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            if(((String)pair.getKey()).equalsIgnoreCase(productName)){
+                this.stock.remove(productName);
+                break;
+            }
+        }
+
+    }
+    public void StockLower(String name){
+        stock.replace(name, stock.get(name)-1);
+    }
+
+    public void setRating(int points) {
+        this.rating = (this.rating+points)/2;
     }
 
 }
