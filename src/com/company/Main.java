@@ -23,8 +23,8 @@ public class Main {
         System.out.println("--->Your actions<---");
         System.out.println("1)List shops");//done
         System.out.println("2)List one shop");//done
-        System.out.println("3)Sorting shops by rating ");
-        System.out.println("4)Place an order");
+        System.out.println("3)Sorting shops by rating ");//done
+        System.out.println("4)Place an order");//done
         System.out.println("5)Cancel an order");
         System.out.println("6)Log Off");//done
         System.out.println("7)Rate one shop");//done
@@ -36,8 +36,9 @@ public class Main {
         //TODO: Cand fac un menu trebuie sa scad numarul din stock-uri
         //TODO: de adaugat posibilitatea de a adauga un rating la un shop
         //TODO: de regandit lista de bauturi de la Restaurant
-        //TODO: de scazut stock-ul la comandarea unui produs
+        //TODO: de scazut stock-ul la plasarea unei comenzi
         //TODO: de regandit clasele: User, Owner, DelieveryBoy
+        //TODO: eventual de adaugat si o metoda pentru afisarea comenzilor
 
 
         Service service = Service.getInstance();

@@ -13,7 +13,7 @@
 1. 12 actiuni :ballot_box_with_check:
 2. 19 clase :ballot_box_with_check:
 3. atribute private/protected + metode de acces :ballot_box_with_check:
-4. colectii utilizate: List -> ArrayList, Set -> HashSet, Map -> HashMap, TreeMap (colectie sortata) :ballot_box_with_check:
+4. colectii utilizate: List -> ArrayList, Set -> HashSet, Map -> HashMap, Set-> TreeSet (colectie sortata) :ballot_box_with_check:
 5. 2 clase de serviciu : Service, Login :ballot_box_with_check:
 6. clasa Main care face apeluri catre servicii :ballot_box_with_check:
 

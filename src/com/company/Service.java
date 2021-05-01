@@ -13,12 +13,14 @@ import com.company.User.User;
 
 import java.util.*;
 
-class SortByRating  implements Comparator<Shop>{
-    public int compare(Shop shop1, Shop shop2)
-    {
-        if(shop1.getRating() < shop2.getRating())return -1;
-        else
-            return 1;
+
+class Sort implements Comparator<Map.Entry<Integer, Shop>> {
+    //ajuta la sortarea in TreeSet
+    public int compare(Map.Entry<Integer, Shop> e1, Map.Entry<Integer, Shop> e2) {
+        Shop v1 = e1.getValue();
+        Shop v2 = e2.getValue();
+        if (v1.getRating() > v2.getRating()) return -1;
+        return 1;
     }
 }
 public class Service { //singleton
@@ -170,22 +172,13 @@ public class Service { //singleton
     public void cancelOrder(){
         //anulare plasare comanda
         writing.WriteTimestamp("Cancel Order");
+
         Scanner var=new Scanner(System.in);
-        System.out.println("Give the order ID you want to cancel:");
+        System.out.print("Give the order ID you want to cancel:");
         int ID=var.nextInt();
+        this.orders.remove(ID);
 
-        Set set=shops.entrySet();//Convertire la set ca sa pot itera
-        Iterator itr=set.iterator();
-        while(itr.hasNext()){
-            //Convertire la Map.Entry ca sa pot lua fiecare cheie separata
-            Map.Entry entry=(Map.Entry)itr.next();
-            if((int)entry.getKey()==ID) {
-                orders.remove(entry.getValue());
-                System.out.print("The order has been succesfully canceld");
-                break;
-            }
-
-        }
+        //System.out.println(this.orders.get(ID));
 
     }
 
@@ -367,37 +360,14 @@ public class Service { //singleton
         writing.WriteTimestamp("Sorting Shops by rating");
         //afisare restaurante populare in urma ratingului
 
-
-        Map<Shop, Integer> sorted = new TreeMap<>(new Comparator<Shop>() {
-            @Override
-            public int compare(Shop o1, Shop o2) {
-
-                if (o1.getRating()<o2.getRating() ) return -1;
-                return 1;
-            }
-        });
-
-        /*
-        Comparator<Shop> c=new Comparator<Shop>() {
-
-            @Override
-            public int compare(Shop shop1, Shop shop2)
-            {
-                if(shop1.getRating() < shop2.getRating())return -1;
-                else
-                    return 1;
-            }
-
-        };
-        TreeMap<Integer, Shop> sorted = new TreeMap<Integer, Shop>(shops);
-
-        //afisare
+        Set<Map.Entry<Integer, Shop>> set = new TreeSet<>(new Sort());
+        set.addAll(this.shops.entrySet());
+        //System.out.println(set);
         for (Map.Entry<Integer, Shop>
-                entry : sorted.entrySet())
+                entry : set)
             System.out.println(
                     entry.getValue().getName()+" --->Rating:"+entry.getValue().getRating());
 
-         */
     }
 
     public void addMenu(){
