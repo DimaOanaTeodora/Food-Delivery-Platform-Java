@@ -1,0 +1,104 @@
+------FastFood----------
+Name: KFC
+----Owner Information----
+Name: Vladescu Ionel
+Email: ionel@yahoo.com
+Phone: 0722522227
+
+Restaurant rating: 0.0
+->List of Deliveryboys:
+ ----Delivery Boy Information----
+Name: Maricel Andrei
+Email: andreim234@gmail.com
+Car Number: PH27ION
+Phone: 0723335672
+
+----Delivery Boy Information----
+Name: Ionescu Miron
+Email: miro_ion@gmail.com
+Car Number: BV28RON
+Phone: 0723455672
+
+->List of Boxes: 
+----Menu: Fast Food Box----
+Name: Smart Box
+Menu Price: 25.15lei
+----Product:Burger-----
+Name: Chicken Burger
+Ingredients: pui;salata;rosii;branza
+Vegan: false
+Price: 5.65lei
+Fries: Small
+->Drinks Options:
+----Product:Drink-----
+Name: Coca Cola 250ml
+Flavour: Cola
+Price: 7.5lei
+----Product:Drink-----
+Name: Fanta 500ml Portocale
+Flavour: Portocale
+Price: 6.0lei
+----Product:Drink-----
+Name: Fanta 500ml Piersici
+Flavour: Piersici
+Price: 6.0lei
+ 
+Stock:20
+----Menu: Fast Food Box----
+Name: Big Box
+Menu Price: 25.15lei
+----Product:Burger-----
+Name: Chicken Burger
+Ingredients: pui;salata;rosii;branza
+Vegan: false
+Price: 5.65lei
+Fries: Big
+->Drinks Options:
+----Product:Drink-----
+Name: Coca Cola 250ml
+Flavour: Cola
+Price: 7.5lei
+----Product:Drink-----
+Name: Fanta 500ml Portocale
+Flavour: Portocale
+Price: 6.0lei
+----Product:Drink-----
+Name: Fanta 500ml Piersici
+Flavour: Piersici
+Price: 6.0lei
+ 
+Stock:20
+->List of Drinks: 
+----Product:Drink-----
+Name: Coca Cola 250ml
+Flavour: Cola
+Price: 7.5lei
+ 
+Stock:120
+----Product:Drink-----
+Name: Fanta 500ml Portocale
+Flavour: Portocale
+Price: 6.0lei
+ 
+Stock:100
+----Product:Drink-----
+Name: Fanta 500ml Piersici
+Flavour: Piersici
+Price: 6.0lei
+ 
+Stock:100
+->List of Burgers: 
+----Product:Burger-----
+Name: Chicken Burger
+Ingredients: pui;salata;rosii;branza
+Vegan: false
+Price: 5.65lei
+ 
+Stock:20
+----Product:Burger-----
+Name: Hamburger
+Ingredients: cihftea de vita;rosii;castraveti;branza
+Vegan: false
+Price: 5.67lei
+ 
+Stock:25
