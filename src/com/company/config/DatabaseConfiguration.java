@@ -14,7 +14,7 @@ public class DatabaseConfiguration {//singleton
 
     private DatabaseConfiguration() {}
 
-    public static Connection getDatabaseConnection() {
+    public static synchronized Connection getDatabaseConnection() {
         try {
             if (databaseConnection == null || databaseConnection.isClosed()) {
                 Class.forName("com.mysql.cj.jdbc.Driver");

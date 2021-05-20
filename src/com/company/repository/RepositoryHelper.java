@@ -4,14 +4,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class RepositoryHelper { //singleton ?
+public class RepositoryHelper { //singleton
 
-    private static RepositoryHelper repositoryHelper = new RepositoryHelper();
+    private static RepositoryHelper single_instance;
 
     private RepositoryHelper() {}
 
-    public static RepositoryHelper getRepositoryHelper() {
-        return repositoryHelper;
+    public static synchronized RepositoryHelper getRepositoryHelper() {
+        if (single_instance == null)
+            single_instance = new RepositoryHelper();
+        return single_instance;
     }
 
     public void executeSql(Connection connection, String sql) throws SQLException {

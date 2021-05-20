@@ -66,4 +66,19 @@ public class DrinkRepository {
         }
         return null;
     }
+    // PreparedStatement - use when we have parameters
+    public void deleteDrinkByName(String name) {
+        String deleteSql ="DELETE FROM drinks WHERE name=?";
+
+        Connection databaseConnection = DatabaseConfiguration.getDatabaseConnection();
+        try {
+            PreparedStatement preparedStatement = databaseConnection.prepareStatement(deleteSql);
+            // trebuie puse in functie de ordinea parametrilor
+            preparedStatement.setString(1, name);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

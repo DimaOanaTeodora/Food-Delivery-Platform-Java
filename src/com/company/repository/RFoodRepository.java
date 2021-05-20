@@ -67,4 +67,19 @@ public class RFoodRepository {
         }
         return null;
     }
+    // PreparedStatement - use when we have parameters
+    public void deleteRFoodByName(String name) {
+        String deleteSql ="DELETE FROM rfoods WHERE name=?";
+
+        Connection databaseConnection = DatabaseConfiguration.getDatabaseConnection();
+        try {
+            PreparedStatement preparedStatement = databaseConnection.prepareStatement(deleteSql);
+            // trebuie puse in functie de ordinea parametrilor
+            preparedStatement.setString(1, name);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

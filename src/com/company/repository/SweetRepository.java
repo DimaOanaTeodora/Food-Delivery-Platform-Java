@@ -7,20 +7,20 @@ import java.sql.*;
 
 public class SweetRepository {
     // CallableStatement
-    public void insertSweet(Sweet user) {
+    public void insertSweet(Sweet sweet) {
         String preparedSql = "{call insertSweet(?,?,?)}";
 
         Connection databaseConnection = DatabaseConfiguration.getDatabaseConnection();
         try {
             CallableStatement cstmt = databaseConnection.prepareCall(preparedSql);
-            cstmt.setString(1, user.getName());
-            cstmt.setDouble(2, user.getPrice());
-            cstmt.setInt(3, user.getCalories());
+            cstmt.setString(1, sweet.getName());
+            cstmt.setDouble(2, sweet.getPrice());
+            cstmt.setInt(3, sweet.getCalories());
 
             cstmt.registerOutParameter(1, Types.VARCHAR ); //out param (result of the procedure call)
 
             cstmt.execute();
-            System.out.println("Added user with name:" + cstmt.getString(1));    //out param (result of the procedure call)
+            System.out.println("Added sweet with name:" + cstmt.getString(1));    //out param (result of the procedure call)
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -28,7 +28,7 @@ public class SweetRepository {
 
     // PreparedStatement - use when we have parameters
     public Sweet getSweetByName(String name) {
-        String selectSql ="SELECT * FROM user WHERE name=?";
+        String selectSql ="SELECT * FROM sweets WHERE name=?";
 
         Connection databaseConnection = DatabaseConfiguration.getDatabaseConnection();
         try {
@@ -65,5 +65,20 @@ public class SweetRepository {
             return new Sweet(resultSet.getString(2), resultSet.getDouble(3), resultSet.getInt(4));
         }
         return null;
+    }
+    // PreparedStatement - use when we have parameters
+    public void deleteSweetByName(String name) {
+        String deleteSql ="DELETE FROM sweets WHERE name=?";
+
+        Connection databaseConnection = DatabaseConfiguration.getDatabaseConnection();
+        try {
+            PreparedStatement preparedStatement = databaseConnection.prepareStatement(deleteSql);
+            // trebuie puse in functie de ordinea parametrilor
+            preparedStatement.setString(1, name);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

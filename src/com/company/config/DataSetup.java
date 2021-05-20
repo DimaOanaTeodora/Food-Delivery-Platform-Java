@@ -75,19 +75,19 @@ public class DataSetup {
 
                 Connection databaseConnection = DatabaseConfiguration.getDatabaseConnection();
                 RepositoryHelper repositoryHelper = RepositoryHelper.getRepositoryHelper();
+                repositoryHelper.executeUpdateSql(databaseConnection, deleteRowsSql);
 
-                try {
-                    repositoryHelper.executeUpdateSql(databaseConnection, deleteRowsSql);
-                }  catch (SQLException e) {
-                    e.printStackTrace();
-                    System.out.println("Error when I try to delete all rows from tables !");
-                }
             }
+            System.out.println("Delete information successfully!");
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        catch (SQLException e) {
+            //e.printStackTrace();
+            System.out.println("Error when I try to delete all rows from tables !");
         }
     }
 
@@ -101,18 +101,18 @@ public class DataSetup {
                 Connection databaseConnection = DatabaseConfiguration.getDatabaseConnection();
                 RepositoryHelper repositoryHelper = RepositoryHelper.getRepositoryHelper();
 
-                try {
-                    repositoryHelper.executeSql(databaseConnection, dropTableSql);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                    System.out.println("Error when I try create the tables for the database !");
-                }
+                repositoryHelper.executeSql(databaseConnection, dropTableSql);
             }
+            System.out.println("Drop the tables successfully!");
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error when I try create the tables for the database !");
         }
 
     }
