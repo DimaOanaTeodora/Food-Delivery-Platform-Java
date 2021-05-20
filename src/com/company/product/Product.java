@@ -2,6 +2,7 @@ package com.company.product;
 
 public abstract class Product {
 
+    int id; //pt baza de date
     protected String name;
     protected double price;
     public Product(){}

@@ -45,4 +45,12 @@ public class Burger extends Product {
 
         return output;
     }
+
+    public boolean getisVegan() {
+        return isVegan;
+    }
+
+    public String getIngredients() {
+        return ingredients;
+    }
 }

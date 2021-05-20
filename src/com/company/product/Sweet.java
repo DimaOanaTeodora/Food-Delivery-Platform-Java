@@ -38,4 +38,8 @@ public class Sweet extends Product {
 
         return output;
     }
+
+    public int getCalories() {
+        return calories;
+    }
 }

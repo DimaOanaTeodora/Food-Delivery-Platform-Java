@@ -1,3 +1,21 @@
+### Cerinte a treia etapa
+:o: Baza de date: MySQL
+
+:large_orange_diamond: Mediu de lucru: MySQL Workbench
+1. Clasa DatabaseConfiguration - Singleton - 2 metode statice:
+   - getDatabaseConnection(): realizeaza conexiunea la baza de date si Driver
+   - closeDatabaseConnection(): realizeaza inchiderea bazei de date
+2. Clasa DataSetup - 3 metode:
+    - setUp() : creare tabel
+    - addUser(): inserare rand in tabel
+    - displayUser(): afisare useri din tabel
+3. Clasa RepositoryHelper:
+4. Clasa UserRepository - 4 metode:
+    - insertUser (user): apeleaza procedura de iserare user in tabel
+    - getUserByName(name): afiseaza user cautat dupa nume
+    - updateUserEmail(newEmail, name): modifica emailul unui user dat dupa nume
+    - functie auxiliara in getUserByName (transforma un rand in tabel intr-un obiect User)
+    
 ### Cerinte a doua etapa:
 1. 5 fisiere de tip CSV :ballot_box_with_check:
     - Users.csv -> User.class

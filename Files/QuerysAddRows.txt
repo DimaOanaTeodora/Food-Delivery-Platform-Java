@@ -1,0 +1,8 @@
+INSERT INTO burgers(name, price, isVegan, ingredients)VALUES('Burger Gurmand', 7.56, false , 'chiftea carne de vita, branza, ceapa, rosii')
+INSERT INTO burgers(name, price, isVegan, ingredients)VALUES('Veggie', 10.56, true , 'chiftea din soia, branza, ceapa, rosii')
+INSERT INTO drinks(name, price, flavour)VALUES('Cola 0 250 ml', 4.3, 'cola cu lamaie fara zahar')
+INSERT INTO drinks(name, price, flavour)VALUES('Lipton Ice Tea Piersica 500 ml', 7.56, 'piersici')
+INSERT INTO rfoods(name, price, ingredients)VALUES('Ciorba de vacuta', 10.56, 'carne de vita, cartofi, ceapa, rosii, smantana, patrunjel')
+INSERT INTO rfoods(name, price, ingredients)VALUES('Snitel vienez', 8.77, 'snitel din carne de pui, pesmet, cascaval, sunca')
+INSERT INTO sweets(name, price, calories)VALUES('Eclere cu vanilie', 3.56, 200)
+INSERT INTO sweets(name, price, calories)VALUES('Tarte cu cocos', 4.56, 154)

@@ -41,4 +41,8 @@ public class Drink extends Product{
                 return output;
 
         }
+
+        public String getFlavour() {
+                return flavour;
+        }
 }

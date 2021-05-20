@@ -1,0 +1,4 @@
+drop table burgers
+drop table drinks
+drop table rfoods
+drop table sweets

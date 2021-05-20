@@ -41,4 +41,8 @@ public class RFood extends Product{
         return output;
 
     }
+
+    public String getIngredients() {
+        return ingredients;
+    }
 }

@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS burgers (bruger_id integer PRIMARY KEY AUTO_INCREMENT,name varchar(30), price double,isVegan boolean,ingredients varchar(100))
+CREATE TABLE IF NOT EXISTS drinks (drink_id integer PRIMARY KEY AUTO_INCREMENT,name varchar(30), price double,flavour varchar(50))
+CREATE TABLE IF NOT EXISTS rfoods(rfood_id integer PRIMARY KEY AUTO_INCREMENT,name varchar(30), price double,ingredients varchar(100))
+CREATE TABLE IF NOT EXISTS sweets (sweet_id integer PRIMARY KEY AUTO_INCREMENT,name varchar(30), price double,calories integer)

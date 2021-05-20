@@ -1,0 +1,4 @@
+delete from burgers
+delete from drinks
+delete from rfoods
+delete from sweets
