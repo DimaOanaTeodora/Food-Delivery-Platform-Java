@@ -176,7 +176,6 @@ public class Order {
             System.out.print("->Do you want to add a product?(yes/no):");
             answer = var.nextLine();
             if (answer.equalsIgnoreCase("yes")) {
-                System.out.println("Choose products:");
                 while (true) {
                     System.out.print("Choose product number:");
                     choose = var.nextInt();

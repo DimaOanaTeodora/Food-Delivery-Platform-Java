@@ -1,6 +1,10 @@
 # you can skip this first one if it is not already excluded by prior patterns
 out/
+# you can skip this first one if it is not already excluded by prior patterns
 hooks/
+# you can skip this first one if it is not already excluded by prior patterns
 info/
+# you can skip this first one if it is not already excluded by prior patterns
 objects/
+# you can skip this first one if it is not already excluded by prior patterns
 refs/

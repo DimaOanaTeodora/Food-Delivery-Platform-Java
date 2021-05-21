@@ -6,14 +6,14 @@
    - getDatabaseConnection(): realizeaza conexiunea la baza de date si driver
    - closeDatabaseConnection(): realizeaza inchiderea bazei de date
 
-2. Clasa RepositoryHelper - Singleton - wrapper pentru executarea queriurilor din DataSetup:
+2. Clasa RepositoryHelper - Singleton - "wrapper" pentru executarea queriurilor din DataSetup:
    - executeSql(Connection connection, String sql): pt operatii fara rezultat (insert, update, delete)
    - executeUpdateSql(Connection connection, String sql): pt operatii fara rezultat (insert, update, delete)
    - executeQuerySql(Connection connection, String sql): pt operatii cu rezultat (select)
    
 3. Clasa DataSetup:
    
-*instructiunile sql sunt citite din fisierele text: QuerysAddRows.txt, QuerysCreateTables.txt, QuerysDeleteAllRows.txt, QuerysDropAllTables.txt*
+*instructiunile SQL sunt citite din fisierele text: QuerysAddRows.txt, QuerysCreateTables.txt, QuerysDeleteAllRows.txt, QuerysDropAllTables.txt*
  
   - createTables() : crearea automata(daca nu exista) a celor 4 tabele (CREATE :ballot_box_with_check:)
   - addRows(): popularea tabelelor cu date (INSERT :ballot_box_with_check:)
@@ -21,14 +21,14 @@
   - dropAllTables(): stergerea tuturor tabelelor din schema
   - displayTable(): afiseara continutului unui tabel, specificat dupa nume (READ: :ballot_box_with_check:)
    
-4. Cele 4 clase: BurgerRepository, DrinkRepository, RFoodRepository, SweetRepository - au metode pentr :
+4. Cele 4 clase: BurgerRepository, DrinkRepository, RFoodRepository, SweetRepository - au metode pentru :
  - inserarea unui obiect in tabel (INSERT :ballot_box_with_check:)
  - afisarea unui obiect din tabel cautat dupa nume (READ :ballot_box_with_check:)
  - updatarea unui obiect din tabel cautat dupa nume (UPDATE :ballot_box_with_check:)
  - stergerea unui obiect din tabel cautat dupa nume (DELETE :ballot_box_with_check:)
- - o functie auxiliara care transforma un rand in tabel intr-un obiect de tipul unuia dintre modelele copii ale clasei Porduct
+ - o functie auxiliara care transforma un rand din tabel intr-un obiect de tipul unuia dintre modelele copii ale clasei Porduct
     
-### Cerinte a doua etapa:
+### Cerinte a doua etapa
 1. 5 fisiere de tip CSV :ballot_box_with_check:
     - Users.csv -> User.class
     - Restaurant.csv -> Restaurant.class
@@ -54,7 +54,7 @@
 ```java
     public <T> void writeShop(Object shop, Class<T> classOf, String path) 
 ```
-### Cerinte prima etapa:
+### Cerinte prima etapa
 1. 12 actiuni :ballot_box_with_check:
 2. 19 clase :ballot_box_with_check:
 3. atribute private/protected + metode de acces :ballot_box_with_check:
@@ -151,11 +151,16 @@
         - sortShops() -> afisare magazine sortate descrescator dupa rating
         - writeOneShop() -> scrie un shop dat dupa nume intr-un csv a carui cale este data de utilizator 
 
-## Aplication (Singleton - clasa de serviciu)- apeluri catre clasa de serviciu Service.java
+### Aplication 
+- Singleton - clasa de serviciu
+- apeluri catre clasa de serviciu Service.java
 
-## DatabaseMenu (Singleton - clasa de serviciu) - apeluri catre actiunile care se pot face pe baza de date de catre adminul aplicatiei
+### DatabaseMenu 
+- Singleton - clasa de serviciu
+- apeluri catre actiunile care se pot face pe baza de date de catre adminul aplicatiei
 
-## Main - se ocupa doar de startul aplicatiei
+### Main 
+- se ocupa doar de startul aplicatiei
 
 # Barem de corectare:
 ### Etapa I  (15 puncte)

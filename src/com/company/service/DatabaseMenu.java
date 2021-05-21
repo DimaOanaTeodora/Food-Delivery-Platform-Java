@@ -19,6 +19,7 @@ public class DatabaseMenu {//singleton
     private static DatabaseMenu single_instance = null;
 
     private DatabaseMenu(){
+        this.writing = AuditService.getInstance();
         this.setUpData = new DataSetup();
         this.var=new Scanner(System.in);
     }
@@ -47,7 +48,7 @@ public class DatabaseMenu {//singleton
 
         System.out.print("What type of product do you want to add \n" +
                 "-> burger\n-> drink\n-> restaurant food\n-> sweet\n-> your choice is: ");
-        this.var.nextLine();
+
         String choice = this.var.nextLine();
         if(choice.equalsIgnoreCase("burger")){
 
@@ -83,7 +84,7 @@ public class DatabaseMenu {//singleton
         writing.WriteTimestamp("List a product from database");
         System.out.print("What type of product do you want to show \n" +
                 "-> burger\n-> drink\n-> restaurant food\n-> sweet\n-> your choice is: ");
-        this.var.nextLine();
+
         String choice = this.var.nextLine();
         String name="";
         if(choice.equalsIgnoreCase("burger")){
@@ -124,7 +125,7 @@ public class DatabaseMenu {//singleton
         writing.WriteTimestamp("Update a product from database");
         System.out.print("What type of product do you want to update \n" +
                 "-> burger\n-> drink\n-> restaurant food\n-> sweet\n-> your choice is: ");
-        this.var.nextLine();
+
         String choice = this.var.nextLine();
         String name="";
         if(choice.equalsIgnoreCase("burger")){
@@ -179,7 +180,7 @@ public class DatabaseMenu {//singleton
         writing.WriteTimestamp("Delete a product from database");
         System.out.print("What type of product do you want to remove \n" +
                 "-> burger\n-> drink\n-> restaurant food\n-> sweet\n-> your choice is: ");
-        this.var.nextLine();
+
         String choice = this.var.nextLine();
         String name="";
         if(choice.equalsIgnoreCase("burger")){
@@ -217,31 +218,35 @@ public class DatabaseMenu {//singleton
         Scanner Var=new Scanner(System.in);
         while(true) {
             this.Options();
-            System.out.print("Choose one action(1/2/3/4/5): ");
+            System.out.print("Choose one action(1/2/3/4/5/6/7):");
             int option = Var.nextInt();
             if (option == 1) {
                 //afisare un singur tabel
-                writing.WriteTimestamp("Display a table from database");
+                this.writing.WriteTimestamp("Display a table from database");
                 this.setUpData.displayTable();
             } else if (option == 2) {
                 //inserare produs
+                this.writing.WriteTimestamp("Insert a product into database");
                 this.insertProduct();
             } else if (option == 3) {
                 //afisare produs dupa nume
+                this.writing.WriteTimestamp("Display a product from database");
                 this.getProduct();
             } else if (option == 4) {
                 //actualizare produs dupa nume
+                this.writing.WriteTimestamp("Update a product from database");
                 this.updateProduct();
             } else if (option == 5) {
                 //stergere produs
+                this.writing.WriteTimestamp("Delete a product from database");
                 this.deleteProduct();
             }else if (option == 6){
                 //stergere informatii tabele
-                writing.WriteTimestamp("Delete all informations from database");
+                this.writing.WriteTimestamp("Delete all informations from database");
                 this.setUpData.deleteAllRows();
             }else if (option == 7){
                 //stergere tabele din baza de date
-                writing.WriteTimestamp("Drop all tables from database");
+                this.writing.WriteTimestamp("Drop all tables from database");
                 this.setUpData.dropAllTables();
 
             }

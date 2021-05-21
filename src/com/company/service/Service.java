@@ -176,9 +176,11 @@ public class Service { //singleton
         Scanner var=new Scanner(System.in);
         System.out.print("Give the order ID you want to cancel:");
         int ID=var.nextInt();
-        this.orders.remove(ID);
-
-        //System.out.println(this.orders.get(ID));
+        if (this.orders.containsKey(ID)) {
+            this.orders.remove(ID);
+            System.out.println("Your order was removed succesfully");
+        }else
+            System.out.println("The order ID doesn't exists!");
 
     }
 
