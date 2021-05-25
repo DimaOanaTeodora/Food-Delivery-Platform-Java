@@ -3,15 +3,17 @@ package com.company.product;
 import java.util.Scanner;
 
 public class Drink extends Product{
+
         private String flavour;
         //in numele bauturii adaug si cantitatea
 
-
         public Drink(){}
+
         public Drink(String name, double price, String flavour) {
                 super(name, price);
                 this.flavour = flavour;
         }
+
         @Override
         public void reader(){
                 Scanner var=new Scanner (System.in);
@@ -28,7 +30,6 @@ public class Drink extends Product{
                 this.name=name;
                 this.price=price;
                 this.flavour=flavour;
-
         }
 
         @Override

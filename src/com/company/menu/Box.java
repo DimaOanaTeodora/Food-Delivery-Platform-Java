@@ -11,6 +11,7 @@ public class Box extends Menu{
     private String fries; //small, medium, big and they are cost free
 
     public Box(){}
+
     public Box(String name, List<Drink> drinks, Burger burger, String fries) {
         super(name, drinks);
         this.burger = burger;
@@ -44,9 +45,10 @@ public class Box extends Menu{
 
         System.out.println("->Box's list of drinks:");
         System.out.print("How many drinks:");
+
         int n=var.nextInt();
-        for(int i=0;i<n;i++)
-        {
+
+        for(int i=0;i<n;i++) {
             System.out.println("->Introduce drink number "+i+": ");
             Drink drink=new Drink();
             drink.reader();
@@ -58,13 +60,12 @@ public class Box extends Menu{
         burger.reader();
         this.burger=burger;
 
-
         double totalPrice=0;
         for(Drink it: drinks)
             totalPrice+=it.getPrice();
+
         totalPrice+=burger.getPrice();
         this.price=totalPrice;
-
 
     }
 
@@ -76,16 +77,14 @@ public class Box extends Menu{
         output+=this.burger;
         output+="Fries: "+this.fries+"\n";
         output+="->Drinks Options:\n";
+
         for(Drink drink : this.drinks)
             output+=drink;
 
         return output;
-
     }
 
     public Burger getBurger() {
         return burger;
     }
-
-
 }

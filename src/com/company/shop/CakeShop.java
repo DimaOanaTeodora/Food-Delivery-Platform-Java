@@ -12,11 +12,15 @@ import java.util.*;
 public class CakeShop extends Shop{
     private List<Sweet> sweets;
 
-    public CakeShop(){this.sweets=new ArrayList<Sweet>();}
+    public CakeShop(){
+        this.sweets=new ArrayList<Sweet>();
+    }
+
     public CakeShop(String name, Owner owner, List<DeliveryBoy> deliveryBoys,  List<Sweet> sweets, HashMap<String, Integer>stock) {
         super(name, owner, deliveryBoys, stock);
         this.sweets = sweets;
     }
+
     @Override
     public void reader(){
         Scanner var=new Scanner(System.in);
@@ -38,6 +42,7 @@ public class CakeShop extends Shop{
         System.out.println("->CakeShop's Menu:");
         System.out.print("How many cakes do you want:");
         n=var.nextInt();
+
         for(int i=0;i<n;i++){
             Sweet sweet=new Sweet();
             sweet.reader();
@@ -51,7 +56,6 @@ public class CakeShop extends Shop{
         Owner owner=new Owner();
         owner.reader(this);
         this.owner=owner;
-
     }
 
     @Override
@@ -60,16 +64,17 @@ public class CakeShop extends Shop{
         output+="Name: "+ this.name+"\n";
         output+=this.owner+"\n";
         output+="->List of Deliveryboys:\n ";
+
         for (DeliveryBoy db: this.deliveryBoys){
             output+= db +"\n";
         }
 
         output+="Restaurant rating: "+ this.rating+"\n";
         output+="->List of Sweets: \n";
+
         for (Sweet sweet: this.sweets){
             output+= sweet + "Stock:" + stock.get(sweet.getName()) +"\n";
         }
-
         return output;
     }
 
@@ -81,11 +86,13 @@ public class CakeShop extends Shop{
     @Override
     public List<Product> getProducts() {
         List<Product> l = null;
+
         for(Sweet it: sweets) {
             l.add(it);
         }
         return l;
     }
+
     public void addSweet(Sweet sweet){
         sweets.add(sweet);
     }
@@ -97,13 +104,14 @@ public class CakeShop extends Shop{
                 break;
             }
         }
-
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof CakeShop)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof CakeShop))
+            return false;
         CakeShop cakeShop = (CakeShop) o;
         return Objects.equals(sweets, cakeShop.sweets);
     }

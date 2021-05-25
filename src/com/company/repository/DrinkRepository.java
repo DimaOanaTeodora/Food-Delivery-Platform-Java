@@ -6,21 +6,27 @@ import com.company.product.Drink;
 import java.sql.*;
 
 public class DrinkRepository {
+
     // CallableStatement
     public void insertDrink(Drink drink) {
         String preparedSql = "{call insertDrink(?,?,?)}";
 
         Connection databaseConnection = DatabaseConfiguration.getDatabaseConnection();
+
         try {
             CallableStatement cstmt = databaseConnection.prepareCall(preparedSql);
+
             cstmt.setString(1, drink.getName());
             cstmt.setDouble(2, drink.getPrice());
             cstmt.setString(3, drink.getFlavour());
 
-            cstmt.registerOutParameter(1, Types.VARCHAR ); //out param (result of the procedure call)
+            //out param (result of the procedure call)
+            cstmt.registerOutParameter(1, Types.VARCHAR );
 
             cstmt.execute();
-            System.out.println("Added drink with name:" + cstmt.getString(1));    //out param (result of the procedure call)
+
+            //out param (result of the procedure call)
+            System.out.println("Added drink with name:" + cstmt.getString(1));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -31,11 +37,14 @@ public class DrinkRepository {
         String selectSql ="SELECT * FROM drinks WHERE name=?";
 
         Connection databaseConnection = DatabaseConfiguration.getDatabaseConnection();
+
         try {
             PreparedStatement preparedStatement = databaseConnection.prepareStatement(selectSql);
+
             preparedStatement.setString(1, name);//pozitia parametrului din select
 
             ResultSet resultSet = preparedStatement.executeQuery();
+
             return mapToDrink(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -48,13 +57,16 @@ public class DrinkRepository {
         String updateNameSql = "UPDATE drinks SET price=? WHERE name=?";
 
         Connection databaseConnection = DatabaseConfiguration.getDatabaseConnection();
+
         try {
             PreparedStatement preparedStatement = databaseConnection.prepareStatement(updateNameSql);
+
             // trebuie puse in functie de ordinea parametrilor
             preparedStatement.setDouble(1, price);
             preparedStatement.setString(2, name);
 
             preparedStatement.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -66,17 +78,21 @@ public class DrinkRepository {
         }
         return null;
     }
+
     // PreparedStatement - use when we have parameters
     public void deleteDrinkByName(String name) {
         String deleteSql ="DELETE FROM drinks WHERE name=?";
 
         Connection databaseConnection = DatabaseConfiguration.getDatabaseConnection();
+
         try {
             PreparedStatement preparedStatement = databaseConnection.prepareStatement(deleteSql);
+
             // trebuie puse in functie de ordinea parametrilor
             preparedStatement.setString(1, name);
 
             preparedStatement.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

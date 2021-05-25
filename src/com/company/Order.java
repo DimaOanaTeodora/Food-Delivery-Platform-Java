@@ -32,10 +32,12 @@ public class Order {
     public void setShop(Shop shop) {
         this.shop = shop;
     }
+
     private int getRandomNumber(int min, int max) {
         // [min, max)
         return (int) ((Math.random() * (max - min)) + min);
     }
+
     public void setDeliveryBoy() {
         //aleg random un baiat de livrat
         List<DeliveryBoy> D=this.shop.getDeliveryBoys();
@@ -43,10 +45,9 @@ public class Order {
         this.deliveryBoy=D.get(random);
     }
 
-
     public void setPrice() {
-
         double totalPrice=0;
+
         for(Menu it: menus){
             totalPrice+=it.getPrice();
         }
@@ -54,9 +55,8 @@ public class Order {
             totalPrice+=it.getPrice();
         }
         this.price=totalPrice;
-
-
     }
+
     public double getPrice(){
         return this.price;
     }
@@ -77,14 +77,18 @@ public class Order {
         output+=this.deliveryBoy;
         output+="*Shop: "+this.shop.getName()+"\n";
         output+="**The menus you chooes:**\n";
+
         for(Menu it: this.menus)
             output+=it;
+
         output+="**The products you chooes:**\n";
+
         for(Product it: this.products)
             output+=it;
 
         return output;
     }
+
     public void reader(HashMap<Integer, Shop> shops){
         Scanner var=new Scanner(System.in);
 
@@ -131,6 +135,7 @@ public class Order {
             List<Product> products = this.shop.getProducts();
             int choose = 0;
             System.out.println("->The products are:");
+
             for (int i = 0; i < products.size(); i++) {
                 System.out.println("->Product number " + i + " is:");
                 System.out.println(products.get(i));
@@ -138,6 +143,7 @@ public class Order {
 
             List<Menu> menus = this.shop.getMenus();
             System.out.println("->The menus are:");
+
             for (int i = 0; i < menus.size(); i++) {
                 System.out.println("Menu number " + i + " is:");
                 System.out.println(menus.get(i));
@@ -145,6 +151,7 @@ public class Order {
 
             System.out.print("->Do you want to add a menu?(yes/no):");
             String answer = var.nextLine();
+
             if (answer.equalsIgnoreCase("yes")) {
 
                 while (true) {

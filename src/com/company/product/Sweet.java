@@ -3,13 +3,16 @@ package com.company.product;
 import java.util.Scanner;
 
 public class Sweet extends Product {
+
     private int calories;
 
     public Sweet(){}
+
     public Sweet(String name, double price,  int calories) {
         super(name, price);
         this.calories = calories;
     }
+
     @Override
     public void reader(){
         Scanner var=new Scanner (System.in);
@@ -26,7 +29,6 @@ public class Sweet extends Product {
         this.name=name;
         this.price=price;
         this.calories=calories;
-
     }
 
     @Override

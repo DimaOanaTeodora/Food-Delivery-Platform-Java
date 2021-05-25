@@ -10,6 +10,7 @@ import com.company.user.Owner;
 import java.util.*;
 
 public class FastFood extends Shop {
+
     private List<Box> boxes;
     private List<Drink> drinks;
     private List<Burger> burgers;
@@ -25,7 +26,6 @@ public class FastFood extends Shop {
         this.boxes = boxes;
         this.drinks = drinks;
         this.burgers = burgers;
-
     }
 
     @Override
@@ -36,10 +36,10 @@ public class FastFood extends Shop {
         String name = var.nextLine();
         this.name = name;
 
-
         System.out.println("->FastFood delivery boys:");
         System.out.print("How many delivery boys do you want:");
         int n = var.nextInt();
+
         for (int i = 0; i < n; i++) {
             DeliveryBoy deliveryboy = new DeliveryBoy();
             deliveryboy.reader();
@@ -49,6 +49,7 @@ public class FastFood extends Shop {
         System.out.println("->FastFood list of burgers:");
         System.out.print("How many burgers:");
         n = var.nextInt();
+
         for (int i = 0; i < n; i++) {
             System.out.println("Introduce burger number " + i + ": ");
             Burger burger = new Burger();
@@ -63,6 +64,7 @@ public class FastFood extends Shop {
         System.out.println("FastFood list of drinks:");
         System.out.print("How many drinks:");
         n = var.nextInt();
+
         for (int i = 0; i < n; i++) {
             System.out.println("Introduce drink number " + i + ": ");
             Drink drink = new Drink();
@@ -73,9 +75,11 @@ public class FastFood extends Shop {
             int quantity=var.nextInt();
             stock.put(drink.getName(), quantity);
         }
+
         System.out.println("FastFood list of boxes:");
         System.out.print("How many boxes:");
         n = var.nextInt();
+
         for (int i = 0; i < n; i++) {
             System.out.println("Introduce box number " + i + ": ");
             Box box = new Box();
@@ -89,7 +93,6 @@ public class FastFood extends Shop {
         Owner owner = new Owner();
         owner.reader(this);
         this.owner = owner;
-
     }
 
     @Override
@@ -99,22 +102,25 @@ public class FastFood extends Shop {
         output+=this.owner+"\n";
         output+="Restaurant rating: "+ this.rating+"\n";
         output+="->List of Deliveryboys:\n ";
+
         for (DeliveryBoy db: this.deliveryBoys){
             output+= db +"\n";
         }
         output+="->List of Boxes: \n";
+
         for (Box box: this.boxes){
             output+= box + " \nStock:" + stock.get(box.getName()) +"\n";
         }
         output+="->List of Drinks: \n";
+
         for (Drink drink: this.drinks){
             output+= drink + " \nStock:" + stock.get(drink.getName()) +"\n";
         }
         output+="->List of Burgers: \n";
+
         for (Burger burger: this.burgers){
             output+= burger + " \nStock:" + stock.get(burger.getName()) +"\n";
         }
-
         return output;
     }
 
@@ -146,6 +152,7 @@ public class FastFood extends Shop {
     public void addDrink(Drink drink) {
         drinks.add(drink);
     }
+
     public void removeBurger(Burger burger){
         for(Burger it: burgers) {
             if (it.equals(burger)) {
@@ -153,8 +160,8 @@ public class FastFood extends Shop {
                 break;
             }
         }
-
     }
+
     public void removeDrink(Drink drink){
         for(Drink it: drinks) {
             if (it.equals(drink)) {
@@ -163,15 +170,19 @@ public class FastFood extends Shop {
             }
         }
     }
+
     public void addBox(Box box){
         this.boxes.add(box);
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof FastFood)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof FastFood))
+            return false;
         FastFood fastFood = (FastFood) o;
+
         return Objects.equals(boxes, fastFood.boxes) &&
                 Objects.equals(drinks, fastFood.drinks) &&
                 Objects.equals(burgers, fastFood.burgers);
@@ -187,6 +198,7 @@ public class FastFood extends Shop {
         List <Drink> D=new ArrayList<Drink>();
         int i=0;
         System.out.println("->List of drinks to choose:");
+
         for(Drink drink: chooseFrom.getDrinks()) {
             System.out.println("Drink number "+ i+ ":\n");
             i++;
@@ -194,9 +206,10 @@ public class FastFood extends Shop {
         }
         System.out.print("->Choose a drink number:");
         int choose=var.nextInt();
+
         D.add((chooseFrom.getDrinks()).get(choose));
         Box box=new Box (chooseFrom.getName(), D, chooseFrom.getBurger(), chooseFrom.getFries());
-        return box;
 
+        return box;
     }
 }

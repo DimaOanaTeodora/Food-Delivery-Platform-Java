@@ -29,6 +29,7 @@ public abstract class Shop {
         this.rating =0;
         this.stock = stock;
     }
+
     public void addRating(){
         Scanner var=new Scanner(System.in);
 
@@ -41,7 +42,6 @@ public abstract class Shop {
             this.rating=(this.rating+points)/2;
             System.out.println("Thank you :)");
         }
-
     }
 
     public String getName() {
@@ -58,6 +58,7 @@ public abstract class Shop {
     public abstract String toString();
 
     public abstract List<Menu>getMenus();
+
     public abstract List<Product> getProducts();
 
     public double getRating() {
@@ -67,14 +68,15 @@ public abstract class Shop {
     public void updateDeliveryBoy(DeliveryBoy d){
         int poz=0;
         for(int i=0;i<deliveryBoys.size();i++)
-            if(deliveryBoys.get(i).equals(d))
-            {
+            if(deliveryBoys.get(i).equals(d)) {
                 poz=i;
                 break;
             }
+
         Scanner var=new Scanner(System.in);
         System.out.print("Do you want to change his car number?(yes/no):");
         String answer=var.nextLine();
+
         if(answer.equalsIgnoreCase("yes")){
             System.out.print("Give the new car number:");
             String carNumber=var.nextLine();
@@ -82,13 +84,13 @@ public abstract class Shop {
         }
         System.out.print("Do you want to change his phone number?(yes/no):");
         answer=var.nextLine();
+
         if(answer.equalsIgnoreCase("yes")){
             System.out.print("Give the new phone number:");
             String phoneNumber=var.nextLine();
             d.setPhoneNumber(phoneNumber);
         }
         deliveryBoys.set(poz, d);
-
     }
 
     public void updateStock(String productName, int stock){
@@ -104,8 +106,8 @@ public abstract class Shop {
                 break;
             }
         }
-
     }
+
     public void StockLower(String name){
         stock.replace(name, stock.get(name)-1);
     }

@@ -6,21 +6,28 @@ import com.company.product.RFood;
 import java.sql.*;
 
 public class RFoodRepository {
+
     // CallableStatement
     public void insertRFood(RFood rfood) {
         String preparedSql = "{call insertRFood(?,?,?)}";
 
         Connection databaseConnection = DatabaseConfiguration.getDatabaseConnection();
+
         try {
             CallableStatement cstmt = databaseConnection.prepareCall(preparedSql);
+
             cstmt.setString(1, rfood.getName());
             cstmt.setDouble(2, rfood.getPrice());
             cstmt.setString(3, rfood.getIngredients());
-            
-            cstmt.registerOutParameter(1, Types.VARCHAR ); //out param (result of the procedure call)
+
+            //out param (result of the procedure call)
+            cstmt.registerOutParameter(1, Types.VARCHAR );
 
             cstmt.execute();
-            System.out.println("Added restaurant meal with name:" + cstmt.getString(1));    //out param (result of the procedure call)
+
+            //out param (result of the procedure call)
+            System.out.println("Added restaurant meal with name:" + cstmt.getString(1));
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -31,11 +38,14 @@ public class RFoodRepository {
         String selectSql ="SELECT * FROM rfoods WHERE name=?";
 
         Connection databaseConnection = DatabaseConfiguration.getDatabaseConnection();
+
         try {
             PreparedStatement preparedStatement = databaseConnection.prepareStatement(selectSql);
+
             preparedStatement.setString(1, name);//pozitia parametrului din select
 
             ResultSet resultSet = preparedStatement.executeQuery();
+
             return mapToRFood(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -48,8 +58,10 @@ public class RFoodRepository {
         String updateNameSql = "UPDATE rfoods SET name=? and ingredients=? WHERE name=?";
 
         Connection databaseConnection = DatabaseConfiguration.getDatabaseConnection();
+
         try {
             PreparedStatement preparedStatement = databaseConnection.prepareStatement(updateNameSql);
+
             // trebuie puse in functie de ordinea parametrilor
             preparedStatement.setString(1, new_name);
             preparedStatement.setString(2, ingredients);
@@ -67,13 +79,16 @@ public class RFoodRepository {
         }
         return null;
     }
+
     // PreparedStatement - use when we have parameters
     public void deleteRFoodByName(String name) {
         String deleteSql ="DELETE FROM rfoods WHERE name=?";
 
         Connection databaseConnection = DatabaseConfiguration.getDatabaseConnection();
+
         try {
             PreparedStatement preparedStatement = databaseConnection.prepareStatement(deleteSql);
+
             // trebuie puse in functie de ordinea parametrilor
             preparedStatement.setString(1, name);
 

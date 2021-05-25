@@ -12,6 +12,7 @@ public class BurgerRepository {
         String preparedSql = "{call insertBurger(?,?,?,?)}";
 
         Connection databaseConnection = DatabaseConfiguration.getDatabaseConnection();
+
         try {
             CallableStatement cstmt = databaseConnection.prepareCall(preparedSql);
             cstmt.setString(1, burger.getName());
@@ -19,11 +20,13 @@ public class BurgerRepository {
             cstmt.setBoolean(3, burger.getisVegan());
             cstmt.setString(4, burger.getIngredients());
 
-
-            cstmt.registerOutParameter(1, Types.VARCHAR ); //out param (result of the procedure call)
+            //out param (result of the procedure call)
+            cstmt.registerOutParameter(1, Types.VARCHAR );
 
             cstmt.execute();
-            System.out.println(">---Added burger with name: " + cstmt.getString(1));    //out param (result of the procedure call)
+
+            //out param (result of the procedure call)
+            System.out.println(">---Added burger with name: " + cstmt.getString(1));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -34,12 +37,15 @@ public class BurgerRepository {
         String selectSql ="SELECT * FROM burgers WHERE name=?";
 
         Connection databaseConnection = DatabaseConfiguration.getDatabaseConnection();
+
         try {
             PreparedStatement preparedStatement = databaseConnection.prepareStatement(selectSql);
             preparedStatement.setString(1, name);//pozitia parametrului din select
 
             ResultSet resultSet = preparedStatement.executeQuery();
+
             return mapToBurger(resultSet);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -52,12 +58,15 @@ public class BurgerRepository {
 
         Connection databaseConnection = DatabaseConfiguration.getDatabaseConnection();
         try {
+
             PreparedStatement preparedStatement = databaseConnection.prepareStatement(updateNameSql);
+
             // trebuie puse in functie de ordinea parametrilor
             preparedStatement.setString(1, ingredients);
             preparedStatement.setString(2, name);
 
             preparedStatement.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -75,12 +84,15 @@ public class BurgerRepository {
         String deleteSql ="DELETE FROM burgers WHERE name=?";
 
         Connection databaseConnection = DatabaseConfiguration.getDatabaseConnection();
+
         try {
             PreparedStatement preparedStatement = databaseConnection.prepareStatement(deleteSql);
+
             // trebuie puse in functie de ordinea parametrilor
             preparedStatement.setString(1, name);
 
             preparedStatement.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

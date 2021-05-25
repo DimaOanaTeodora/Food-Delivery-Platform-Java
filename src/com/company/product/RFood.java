@@ -7,10 +7,13 @@ public class RFood extends Product{
     private String ingredients;
 
     public RFood(){}
+
     public RFood(String name, double price,  String ingredients) {
         super(name, price);
+
         this.ingredients = ingredients;
     }
+
     @Override
     public void reader(){
         Scanner var=new Scanner (System.in);
@@ -27,8 +30,6 @@ public class RFood extends Product{
         this.name=name;
         this.price=price;
         this.ingredients=ingredients;
-
-
     }
 
     @Override

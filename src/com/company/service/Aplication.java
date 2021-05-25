@@ -5,9 +5,10 @@ import java.util.Scanner;
 public class Aplication {//singleton
 
     private static Aplication single_instance = null;
+
     private Aplication(){}
-    public static synchronized Aplication getInstance()
-    {
+
+    public static synchronized Aplication getInstance() {
         if (single_instance == null)
             single_instance = new Aplication();
         return single_instance;

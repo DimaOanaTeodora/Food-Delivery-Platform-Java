@@ -13,6 +13,7 @@ import com.company.repository.SweetRepository;
 import java.util.Scanner;
 
 public class DatabaseMenu {//singleton
+
     private DataSetup setUpData;
     private AuditService writing;
     Scanner var;
@@ -23,12 +24,13 @@ public class DatabaseMenu {//singleton
         this.setUpData = new DataSetup();
         this.var=new Scanner(System.in);
     }
-    public static synchronized DatabaseMenu getInstance()
-    {
+
+    public static synchronized DatabaseMenu getInstance() {
         if (single_instance == null)
             single_instance = new DatabaseMenu();
         return single_instance;
     }
+
     private void Options(){
         System.out.println("---------Database Manipulation Menu-----------");
         System.out.println("1) List the rows of a table");
@@ -39,10 +41,13 @@ public class DatabaseMenu {//singleton
         System.out.println("6) Delete information from all the tables");
         System.out.println("7) Drop all the tables");
     }
+
     private void LoadDatabase(){
+        this.setUpData.dropAllTables();//sterg tabelele create inainte (daca exista)
         this.setUpData.createTables();
         this.setUpData.addRows();
     }
+
     private void insertProduct(){
         writing.WriteTimestamp("Insert a product in database");
 
@@ -50,6 +55,7 @@ public class DatabaseMenu {//singleton
                 "-> burger\n-> drink\n-> restaurant food\n-> sweet\n-> your choice is: ");
 
         String choice = this.var.nextLine();
+
         if(choice.equalsIgnoreCase("burger")){
 
             BurgerRepository burgerRepository = new BurgerRepository();
@@ -82,11 +88,13 @@ public class DatabaseMenu {//singleton
 
     private void getProduct(){
         writing.WriteTimestamp("List a product from database");
+
         System.out.print("What type of product do you want to show \n" +
                 "-> burger\n-> drink\n-> restaurant food\n-> sweet\n-> your choice is: ");
 
         String choice = this.var.nextLine();
         String name="";
+
         if(choice.equalsIgnoreCase("burger")){
 
             BurgerRepository burgerRepository = new BurgerRepository();
@@ -123,11 +131,13 @@ public class DatabaseMenu {//singleton
 
     private void updateProduct(){
         writing.WriteTimestamp("Update a product from database");
+
         System.out.print("What type of product do you want to update \n" +
                 "-> burger\n-> drink\n-> restaurant food\n-> sweet\n-> your choice is: ");
 
         String choice = this.var.nextLine();
         String name="";
+
         if(choice.equalsIgnoreCase("burger")){
 
             BurgerRepository burgerRepository = new BurgerRepository();
@@ -178,11 +188,13 @@ public class DatabaseMenu {//singleton
 
     private void deleteProduct(){
         writing.WriteTimestamp("Delete a product from database");
+
         System.out.print("What type of product do you want to remove \n" +
                 "-> burger\n-> drink\n-> restaurant food\n-> sweet\n-> your choice is: ");
 
         String choice = this.var.nextLine();
         String name="";
+
         if(choice.equalsIgnoreCase("burger")){
 
             BurgerRepository burgerRepository = new BurgerRepository();
@@ -215,7 +227,9 @@ public class DatabaseMenu {//singleton
 
     public void DatabaseService(){
         this.LoadDatabase();
+
         Scanner Var=new Scanner(System.in);
+
         while(true) {
             this.Options();
             System.out.print("Choose one action(1/2/3/4/5/6/7):");
@@ -248,6 +262,7 @@ public class DatabaseMenu {//singleton
                 //stergere tabele din baza de date
                 this.writing.WriteTimestamp("Drop all tables from database");
                 this.setUpData.dropAllTables();
+                System.out.println("Drop the tables successfully!");
 
             }
             else {
@@ -255,10 +270,13 @@ public class DatabaseMenu {//singleton
                 continue;
             }
             System.out.print("Do you want another action in database?(yes/no): ");
+
             Var.nextLine();
             String answer = Var.nextLine();
-            if(!answer.equalsIgnoreCase("yes"))
+
+            if(!answer.equalsIgnoreCase("yes")) {
                 break;
+            }
 
         }
     }

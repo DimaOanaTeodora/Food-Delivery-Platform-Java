@@ -21,7 +21,6 @@ public class DatabaseConfiguration {//singleton
                 databaseConnection = DriverManager.getConnection(DB_URL, USER, PASSWORD);
             }
         } catch (SQLException | ClassNotFoundException e) {
-           // e.printStackTrace();
             System.out.println("Error when I try to open database!");
         }
         return databaseConnection;
@@ -33,7 +32,6 @@ public class DatabaseConfiguration {//singleton
                 databaseConnection.close();
             }
         } catch (SQLException e) {
-            //e.printStackTrace();
             System.out.println("Error when I try to close database!");
         }
     }

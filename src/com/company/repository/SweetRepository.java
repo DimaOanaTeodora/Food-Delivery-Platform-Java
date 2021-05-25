@@ -6,21 +6,27 @@ import com.company.product.Sweet;
 import java.sql.*;
 
 public class SweetRepository {
+
     // CallableStatement
     public void insertSweet(Sweet sweet) {
         String preparedSql = "{call insertSweet(?,?,?)}";
 
         Connection databaseConnection = DatabaseConfiguration.getDatabaseConnection();
+
         try {
             CallableStatement cstmt = databaseConnection.prepareCall(preparedSql);
+
             cstmt.setString(1, sweet.getName());
             cstmt.setDouble(2, sweet.getPrice());
             cstmt.setInt(3, sweet.getCalories());
 
-            cstmt.registerOutParameter(1, Types.VARCHAR ); //out param (result of the procedure call)
+            //out param (result of the procedure call)
+            cstmt.registerOutParameter(1, Types.VARCHAR );
 
             cstmt.execute();
-            System.out.println("Added sweet with name:" + cstmt.getString(1));    //out param (result of the procedure call)
+
+            //out param (result of the procedure call)
+            System.out.println("Added sweet with name:" + cstmt.getString(1));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -31,11 +37,14 @@ public class SweetRepository {
         String selectSql ="SELECT * FROM sweets WHERE name=?";
 
         Connection databaseConnection = DatabaseConfiguration.getDatabaseConnection();
+
         try {
             PreparedStatement preparedStatement = databaseConnection.prepareStatement(selectSql);
+
             preparedStatement.setString(1, name);//pozitia parametrului din select
 
             ResultSet resultSet = preparedStatement.executeQuery();
+
             return mapToSweet(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -48,8 +57,10 @@ public class SweetRepository {
         String updateNameSql = "UPDATE sweets SET calories=? WHERE name=?";
 
         Connection databaseConnection = DatabaseConfiguration.getDatabaseConnection();
+
         try {
             PreparedStatement preparedStatement = databaseConnection.prepareStatement(updateNameSql);
+
             // trebuie puse in functie de ordinea parametrilor
             preparedStatement.setInt(1, calories);
             preparedStatement.setString(2, name);
@@ -66,13 +77,16 @@ public class SweetRepository {
         }
         return null;
     }
+
     // PreparedStatement - use when we have parameters
     public void deleteSweetByName(String name) {
         String deleteSql ="DELETE FROM sweets WHERE name=?";
 
         Connection databaseConnection = DatabaseConfiguration.getDatabaseConnection();
+
         try {
             PreparedStatement preparedStatement = databaseConnection.prepareStatement(deleteSql);
+
             // trebuie puse in functie de ordinea parametrilor
             preparedStatement.setString(1, name);
 

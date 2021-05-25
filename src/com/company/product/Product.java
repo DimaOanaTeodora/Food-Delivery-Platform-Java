@@ -5,13 +5,17 @@ public abstract class Product {
     int id; //pt baza de date
     protected String name;
     protected double price;
+
     public Product(){}
 
     public Product(String name, double price) {
         this.name = name;
         this.price = price;
     }
-    public double getPrice(){return this.price;}
+
+    public double getPrice(){
+        return this.price;
+    }
 
     public abstract void reader();
 

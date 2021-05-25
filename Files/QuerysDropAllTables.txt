@@ -1,4 +1,4 @@
-drop table burgers
-drop table drinks
-drop table rfoods
-drop table sweets
+drop table if exists burgers
+drop table if exists drinks
+drop table if exists rfoods
+drop table if exists sweets

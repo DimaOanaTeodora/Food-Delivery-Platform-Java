@@ -3,15 +3,18 @@ package com.company.product;
 import java.util.Scanner;
 
 public class Burger extends Product {
+
     private boolean isVegan;
     private String ingredients;
 
     public Burger(){}
+
     public Burger(String name, double price, boolean isVegan, String ingredients) {
         super(name, price);
         this.isVegan = isVegan;
         this.ingredients = ingredients;
     }
+
     @Override
     public void reader(){
         Scanner var=new Scanner (System.in);
@@ -32,7 +35,6 @@ public class Burger extends Product {
         this.price=price;
         this.isVegan=isVegan;
         this.ingredients=ingredients;
-
     }
 
     @Override

@@ -14,23 +14,23 @@ public class DataSetup {
     public void createTables() {
         File file = new File("Files/QuerysCreateTables.txt");
         try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
 
+            BufferedReader br = new BufferedReader(new FileReader(file));
             String createTableSql;
+
             while ((createTableSql = br.readLine()) != null){
+
                 Connection databaseConnection = DatabaseConfiguration.getDatabaseConnection();
                 RepositoryHelper repositoryHelper = RepositoryHelper.getRepositoryHelper();
-
                 try {
                     repositoryHelper.executeSql(databaseConnection, createTableSql);
                 } catch (SQLException e) {
-                    e.printStackTrace();
                     System.out.println("Error when I try create the tables for the database !");
                 }
             }
         }
         catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("Error when I try create the tables for the database. File not found!");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -41,9 +41,10 @@ public class DataSetup {
 
         File file = new File("Files/QuerysAddRows.txt");
         try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
 
+            BufferedReader br = new BufferedReader(new FileReader(file));
             String insertRowSql;
+
             while ((insertRowSql = br.readLine()) != null){
 
                 Connection databaseConnection = DatabaseConfiguration.getDatabaseConnection();
@@ -69,14 +70,12 @@ public class DataSetup {
         File file = new File("Files/QuerysDeleteAllRows.txt");
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
-
             String deleteRowsSql;
-            while ((deleteRowsSql = br.readLine()) != null){
 
+            while ((deleteRowsSql = br.readLine()) != null){
                 Connection databaseConnection = DatabaseConfiguration.getDatabaseConnection();
                 RepositoryHelper repositoryHelper = RepositoryHelper.getRepositoryHelper();
                 repositoryHelper.executeUpdateSql(databaseConnection, deleteRowsSql);
-
             }
             System.out.println("Delete information successfully!");
         }
@@ -95,15 +94,14 @@ public class DataSetup {
         File file = new File("Files/QuerysDropAllTables.txt");
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
-
             String dropTableSql;
-            while ((dropTableSql = br.readLine()) != null){
+
+            while ((dropTableSql = br.readLine()) != null) {
                 Connection databaseConnection = DatabaseConfiguration.getDatabaseConnection();
                 RepositoryHelper repositoryHelper = RepositoryHelper.getRepositoryHelper();
 
                 repositoryHelper.executeSql(databaseConnection, dropTableSql);
             }
-            System.out.println("Drop the tables successfully!");
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -138,11 +136,12 @@ public class DataSetup {
 
         try {
             ResultSet resultSet = repositoryHelper.executeQuerySql(databaseConnection, selectSql);
+
             while (resultSet.next()) {
                 ResultSetMetaData rsmd = resultSet.getMetaData();
                 int columnsNumber = rsmd.getColumnCount();
 
-                for(int i=2; i<=columnsNumber;i++)//coloana 1 este id-ul
+                for(int i=2; i<=columnsNumber;i++) //coloana 1 este id-ul
                     System.out.print(resultSet.getString(i)+" ");
                 System.out.println();
             }
