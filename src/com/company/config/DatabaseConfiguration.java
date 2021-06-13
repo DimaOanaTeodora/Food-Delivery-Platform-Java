@@ -8,7 +8,7 @@ public class DatabaseConfiguration {//singleton
 
     private static final String DB_URL = "jdbc:mysql://localhost:3306/food_delivery";
     private static final String USER = "root";
-    private static final String PASSWORD = "TSnoopy24";
+    private static final String PASSWORD = "root";
 
     private static Connection databaseConnection;
 
